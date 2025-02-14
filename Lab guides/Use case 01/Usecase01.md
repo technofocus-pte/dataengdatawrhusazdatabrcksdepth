@@ -20,8 +20,7 @@ Personas and scenario
 
 - **Casey Jensen** - Data Analyst for Contoso Corp
 
-![A group of people with text Description automatically
-generated](./media/image1.png)
+    ![](./media/image1.png)
 
 These personas will participate in the following sequential scenarios:
 
@@ -44,8 +43,7 @@ These personas will participate in the following sequential scenarios:
   dashboards to help the operations team monitor machinery performance
   and predict maintenance needs.
 
-![A diagram of a person with blue hair Description automatically
-generated](./media/image2.png)
+![](./media/image2.png)
 
 # Exercise 1: Provision an Azure Databricks workspace
 
@@ -77,24 +75,24 @@ portal](https://learn.microsoft.com/azure/databricks/getting-started/#--create-a
 1.  In your VM, navigate and click in the **Search bar**, type
     **Settings** and then click on **Settings** under **Best match**.
 
-> ![](./media/image3.png)
+    ![](./media/image3.png)
 
 2.  On Settings window, navigate and click on **Time & language**.
 
-![](./media/image4.png)
+    ![](./media/image4.png)
 
 3.  On **Time & language** page, navigate and click on **Date & time**.
 
-![](./media/image5.png)
+    ![](./media/image5.png)
 
 4.  Scroll down and navigate to **Additional settings** section, then
     click on **Syn now** button. It will take 3-5 minutes to syn.
 
-![](./media/image6.png)
+      ![](./media/image6.png)
 
 5.  Close the **Settings** window.
 
-![](./media/image7.png)
+      ![](./media/image7.png)
 
 ## Task 1: Create an Azure Databricks workspace
 
