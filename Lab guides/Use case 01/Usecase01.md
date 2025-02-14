@@ -94,49 +94,92 @@ portal](https://learn.microsoft.com/azure/databricks/getting-started/#--create-a
 
       ![](./media/image7.png)
 
-## Task 1: Create an Azure Databricks workspace
+## Task 0: Redeem Azure Pass
+
+1.  Open a new tab on your browser and browse to the **Microsoft Azure
+    Pass** website using the given
+    link +++https://www.microsoftazurepass.com/+++.
+
+2.  Click on **Start**.
+
+      ![](./media/a1.png)
+
+3.  Enter the **Office 365 tenant credentials** from the Lab
+    VM(**Resources** tab) and **Sign In**.
+
+     ![](./media/a2.png)
+     ![](./media/a3.png)
+
+4.  Verify email id and then click on **Confirm Microsoft Account**.
+
+     ![](./media/a4.png)
+
+5.  Paste the **promo code** from the Resources tab in the **Enter Promo
+    code** box and click **Claim Promo Code**.
+
+     ![](./media/a5.png)
+     ![](./media/a6.png)
+
+6.  It may take few seconds to process the redemption.
+
+7.  Fill in the details appropriately on the **Sign up** page.
+
+8.  On the **Agreement** window, select the check box - I agree to the
+    subscription agreement, offer details, and privacy statement, and
+    then click on **Sign up**.
+
+     ![](./media/a7.png)
+
+9.  You may **Submit** the feedback while the account setup is in
+    progress.
+
+     ![](./media/a8.png)
+     ![](./media/a9.png)
+
+10. The account setup will take about 2-3 minutes to complete. It would
+    automatically redirect you to the **Azure Portal** and now you are
+    ready to use Azure services.
+
+      ![](./media/a10.png)
+
+## Task 2: Create an Azure Databricks workspace
 
 1.  Open your browser, navigate to the address bar, type or paste the
     following URL: +++https://portal.azure.com/+++, then press the
     **Enter** button.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image8.png)
+      ![](./media/image8.png)
 
 2.  In the **Sign in** window, enter the **Username** and click on the
     **Next** button.
 
-![](./media/image9.png)
+    ![](./media/image9.png)
 
 3.  Then, enter the password and click on the **Sign in** button**.**
 
-> ![A login screen with a log in box Description automatically
-> generated](./media/image10.png)
+     ![](./media/image10.png)
 
 4.  In **Stay signed in?** window, click on the **Yes** button.
 
-> ![Graphical user interface, application Description automatically
-> generated](./media/image11.png)
+      ![](./media/image11.png)
 
 5.  On **Welcome to Microsoft Azure** dialog box, click on **Maybe
     later** button.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image12.png)
+     ![](./media/image12.png)
 
 6.  Select the **Cloud Shell** icon in the Azure portal toolbar to open
     a new Cloud Shell pane at the bottom of your browser window.
     Select **Bash**.
 
-![A screenshot of a computer Description automatically
-generated](./media/image13.png)
-
-![](./media/image14.png)
+     ![](./media/image13.png)
+    
+     ![](./media/image14.png)
 
 7.  Select **No storage account required** radio button, and select your
     subscription and then click on **Apply**.
 
-![](./media/image15.png)
+     ![](./media/image15.png)
 
 > ***Note 1**: If you have previously created a cloud shell that uses
 > a Bash environment, use the the drop-down menu at the top left of the
@@ -152,32 +195,25 @@ generated](./media/image13.png)
 4.  At the Power Shell prompt, run the below command to clone the
     project
 
-> codeCopy
->
-> +++rm -r mslearn-databricks -f+++
+        +++rm -r mslearn-databricks -f+++
 
-+++git clone
-<https://github.com/MicrosoftLearning/mslearn-databricks>+++
+        +++git clone https://github.com/MicrosoftLearning/mslearn-databricks+++
 
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image16.png)
+      ![](./media/image16.png)
 
 8.  After the repo has been cloned, enter the following command to run
     the **setup.ps1** script, which provisions an Azure Databricks
     workspace in an available region:
 
-> codeCopy
->
-> +++./mslearn-databricks/setup.ps1+++
->
-> ![A screenshot of a computer screen Description automatically
-> generated](./media/image17.png)
+
+      +++./mslearn-databricks/setup.ps1+++
+ 
+      ![](./media/image17.png)
 
 9.  Wait for the script to complete. It typically takes around 7-8
     minutes
 
-> ![A screenshot of a computer program AI-generated content may be
-> incorrect.](./media/image18.png)
+   ![](./media/image18.png)
 
 ## Exercise 2: Create a cluster
 
@@ -207,32 +243,29 @@ this exercise and skip this procedure.
 1.  In the Azure portal, browse to the **msl-*XXXX*** resource group
     that was created by the script
 
-> ![](./media/image19.png)
->
-> ![](./media/image20.png)
+      ![](./media/image19.png)
+     
+      ![](./media/image20.png)
 
 2.  Select your Azure Databricks Service resource named **databricks-
     *XXXX***.
 
-> ![](./media/image21.png)
+      ![](./media/image21.png)
 
 3.  In the **Overview** page for your workspace, use the **Launch
     Workspace** button to open your Azure Databricks workspace in a new
     browser tab; signing in if prompted.
 
-**Tip**: As you use the Databricks Workspace portal, various tips and
-notifications may be displayed. Dismiss these and follow the
-instructions provided to complete the tasks in this exercise.
+    **Tip**: As you use the Databricks Workspace portal, various tips and
+    notifications may be displayed. Dismiss these and follow the
+    instructions provided to complete the tasks in this exercise.
 
-![A screenshot of a computer Description automatically
-generated](./media/image22.png)
+       ![](./media/image22.png)
 
 4.  In the sidebar on the left, select the **(+) New** task, and then
     select **Cluster**.
 
-![A screenshot of a computer Description automatically
-generated](./media/image23.png)
-
+       ![](./media/image23.png)
 5.  In the **New Cluster** page, create a new cluster with the following
     settings:
 
@@ -253,19 +286,15 @@ generated](./media/image23.png)
 
     - **Terminate after** *20* **minutes of inactivity**
 
-> ![](./media/image24.png)
+      ![](./media/image24.png)
 
 6.  Wait for the cluster to be created. It may take 5-7 minute.
 
-> ![](./media/image25.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image26.png)
-
+     ![](./media/image25.png)
+     ![](./media/image26.png)
 **Note**: If your cluster fails to start, your subscription may have
 insufficient quota in the region where your Azure Databricks workspace
-is provisioned. See [CPU core limit prevents cluster
-creation](https://docs.microsoft.com/azure/databricks/kb/clusters/azure-core-limit) for
+is provisioned. See CPU core limit prevents cluster creation for
 details. If this happens, you can try deleting your workspace and
 creating a new one in a different region. You can specify a region as a
 parameter for the setup script like this: ./mslearn-databricks/setup.ps1
@@ -288,34 +317,26 @@ temperature and humidity from various machines.
     already selected. If the cluster is not running, it may take a
     minute or so to start.
 
-![](./media/image27.png)
+    ![](./media/image27.png)
 
-![A screenshot of a computer Description automatically
-generated](./media/image28.png)
-
+     ![](./media/image28.png)
 2.  In the first cell of the notebook, enter the following code, which
     uses *shell* commands to download data files from GitHub into the
     file system used by your cluster.
 
-> codeCopy
->
-> %sh
->
-> rm -r /dbfs/device_stream
->
-> mkdir /dbfs/device_stream
->
-> wget -O /dbfs/device_stream/device_data.csv
-> https://github.com/MicrosoftLearning/mslearn-databricks/raw/main/data/device_data.csv
->
-> ![A screenshot of a computer Description automatically
-> generated](./media/image29.png)
+    ```
+    %sh
+     rm -r /dbfs/device_stream
+     mkdir /dbfs/device_stream
+     wget -O /dbfs/device_stream/device_data.csv https://github.com/MicrosoftLearning/mslearn-databricks/raw/main/data/device_data.csv
+    ```
+
+     ![](./media/image29.png)
 
 3.  Use the **▸ Run Cell** menu option at the left of the cell to run
     it. Then wait for the Spark job run by the code to complete.
 
-![A screenshot of a computer Description automatically
-generated](./media/image30.png)
+     ![](./media/image30.png)
 
 ## Exercise 4: Use delta tables for streaming data
 
@@ -339,65 +360,46 @@ transformation in real time.
 1.  In a new cell, run the following code to create a stream based on
     the folder containing the csv device data:
 
-> codeCopy
->
-> from pyspark.sql.functions import \*
->
-> from pyspark.sql.types import \*
->
-> \# Define the schema for the incoming data
->
-> schema = StructType(\[
->
-> StructField("device_id", StringType(), True),
->
-> StructField("timestamp", TimestampType(), True),
->
-> StructField("temperature", DoubleType(), True),
->
-> StructField("humidity", DoubleType(), True)
->
-> \])
->
-> \# Read streaming data from folder
->
-> inputPath = '/device_stream/'
->
-> iotstream = spark.readStream.schema(schema).option("header",
-> "true").csv(inputPath)
->
-> print("Source stream created...")
->
-> \# Write the data to a Delta table
->
-> query = (iotstream
->
-> .writeStream
->
-> .format("delta")
->
-> .option("checkpointLocation", "/tmp/checkpoints/iot_data")
->
-> .start("/tmp/delta/iot_data"))
+        ```
+        from pyspark.sql.functions import *
+         from pyspark.sql.types import *
+        
+         # Define the schema for the incoming data
+         schema = StructType([
+             StructField("device_id", StringType(), True),
+             StructField("timestamp", TimestampType(), True),
+             StructField("temperature", DoubleType(), True),
+             StructField("humidity", DoubleType(), True)
+         ])
+        
+         # Read streaming data from folder
+         inputPath = '/device_stream/'
+         iotstream = spark.readStream.schema(schema).option("header", "true").csv(inputPath)
+         print("Source stream created...")
+        
+         # Write the data to a Delta table
+         query = (iotstream
+                  .writeStream
+                  .format("delta")
+                  .option("checkpointLocation", "/tmp/checkpoints/iot_data")
+                  .start("/tmp/delta/iot_data"))
+        ```
 
-![A screenshot of a computer Description automatically
-generated](./media/image31.png)
-
-![A screenshot of a computer Description automatically
-generated](./media/image32.png)
+     ![](./media/image31.png)
+    
+     ![](./media/image32.png)
 
 2.  Use the **▸ Run Cell** menu option at the left of the cell to run
     it.
 
-This delta table will now become the source for data transformation in
-real time.
+    This delta table will now become the source for data transformation in
+    real time.
+    
+    Note: The code cell above creates the source stream. Therefore, the job
+    run will never change to a completed status. To manually stop streaming,
+    you can run query.stop() in a new cell.
 
-Note: The code cell above creates the source stream. Therefore, the job
-run will never change to a completed status. To manually stop streaming,
-you can run query.stop() in a new cell.
-
-![A screenshot of a computer Description automatically
-generated](./media/image33.png)
+    ![](./media/image33.png)
 
 ## Exercise 5: Create a Delta Live Table Pipeline
 
@@ -419,11 +421,8 @@ SQL.
 1.  Select **Delta Live Tables** in the left sidebar and then
     select **Create Pipeline**.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image34.png)
->
-> ![A screenshot of a computer Description automatically
-> generated](./media/image35.png)
+     ![](./media/image34.png)
+     ![](./media/image35.png)
 
 2.  In the **Create pipeline** page, create a new pipeline with the
     following settings. Select Create
@@ -442,97 +441,69 @@ SQL.
 
     - **Target schema**: default
 
-![](./media/image36.png)
-
-![](./media/image37.png)
+      ![](./media/image36.png)
+    
+     ![](./media/image37.png)
 
 3.  Select **Create pipeline**.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image38.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image39.png)
+     ![](./media/image38.png)
+     ![](./media/image39.png)
 
 4.  Once the pipeline is created, open the link to the blank notebook
     under **Source code** in the right-side panel:
 
-![A screenshot of a computer Description automatically
-generated](./media/image40.png)
+     ![](./media/image40.png)
 
 5.  In the first cell of the notebook, enter the following code to
     create Delta Live Tables and transform the data:
 
-> codeCopy
->
-> import dlt
->
-> from pyspark.sql.functions import col, current_timestamp
->
-> @dlt.table(
->
-> name="raw_iot_data",
->
-> comment="Raw IoT device data"
->
-> )
->
-> def raw_iot_data():
->
-> return spark.readStream.format("delta").load("/tmp/delta/iot_data")
->
-> @dlt.table(
->
-> name="transformed_iot_data",
->
-> comment="Transformed IoT device data with derived metrics"
->
-> )
->
-> def transformed_iot_data():
->
-> return (
->
-> dlt.read("raw_iot_data")
->
-> .withColumn("temperature_fahrenheit", col("temperature") \* 9/5 + 32)
->
-> .withColumn("humidity_percentage", col("humidity") \* 100)
->
-> .withColumn("event_time", current_timestamp())
->
-> )
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image41.png)
+    ```
+    import dlt
+     from pyspark.sql.functions import col, current_timestamp
+         
+     @dlt.table(
+         name="raw_iot_data",
+         comment="Raw IoT device data"
+     )
+     def raw_iot_data():
+         return spark.readStream.format("delta").load("/tmp/delta/iot_data")
+    
+     @dlt.table(
+         name="transformed_iot_data",
+         comment="Transformed IoT device data with derived metrics"
+     )
+     def transformed_iot_data():
+         return (
+             dlt.read("raw_iot_data")
+             .withColumn("temperature_fahrenheit", col("temperature") * 9/5 + 32)
+             .withColumn("humidity_percentage", col("humidity") * 100)
+             .withColumn("event_time", current_timestamp())
+         )
+    ```
 
-![A screenshot of a computer Description automatically
-generated](./media/image42.png)
+     ![](./media/image41.png)
+      ![](./media/image42.png)
 
-10. Next click the delta live table
+6. Next click the delta live table
 
-![A screenshot of a computer Description automatically
-generated](./media/image43.png)
+     ![](./media/image43.png)
 
-11. To run an existing pipeline, And select the **start** button to
+7. To run an existing pipeline, And select the **start** button to
     start the pipeline
 
-![A screenshot of a computer Description automatically
-generated](./media/image44.png)
+      ![](./media/image44.png)
+      ![](./media/image45.png)
 
-![A screenshot of a computer Description automatically
-generated](./media/image45.png)
-
-6.  Once the pipeline is successfully executed, go back to the first
+8.  Once the pipeline is successfully executed, go back to the first
     notebook and verify that the new tables have been created in the
     specified storage location with the following code:
 
-> sqlCopy
->
-> display(dbutils.fs.ls("dbfs:/pipelines/device_stream/tables"))
+    ```
+    display(dbutils.fs.ls("dbfs:/pipelines/device_stream/tables"))
+    ```
 
-![A screenshot of a computer Description automatically
-generated](./media/image46.png)
+    ![](./media/image46.png)
 
 ## Exercise 6: View results as a visualization
 
@@ -547,16 +518,14 @@ operations team monitor equipment health in real time.
 
 1.  In the first notebook, add a new code cell and run the following
     code to load the transformed_iot_data into a dataframe:
+    
+    ```
+    df= spark.read.format("delta").load('/pipelines/device_stream/tables/transformed_iot_data')
+    display(df)
+    ```
 
-> codeCopy
->
-> df=
-> spark.read.format("delta").load('/pipelines/device_stream/tables/transformed_iot_data')
->
-> display(df)
+      ![](./media/image47.png)
 
-![A screenshot of a computer Description automatically
-generated](./media/image47.png)
 
 2.  Above the table of results, select **+** and then
     select **Visualization** to view the visualization editor, and then
@@ -570,14 +539,9 @@ generated](./media/image47.png)
       select* **temperature_fahrenheit**. *Apply
       the* **Sum** *aggregation*.
 
-![A screenshot of a computer Description automatically
-generated](./media/image48.png)
-
-![A screenshot of a computer Description automatically
-generated](./media/image49.png)
-
-![A screenshot of a computer Description automatically
-generated](./media/image50.png)
+     ![](./media/image48.png)
+     ![](./media/image49.png)
+     ![](./media/image50.png)
 
 3.  Save the visualization and view the resulting chart in the notebook.
 
@@ -586,17 +550,16 @@ generated](./media/image50.png)
 1.  Navigate to **Azure portal Home** page, click on **Resource
     groups**.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image51.png)
+     ![](./media/image51.png)
 
 2.  Click on the msl-XXX resource group.
 
-![](./media/image52.png)
+     ![](./media/image52.png)
 
 3.  In the **Resource group** home page, select the **delete resource
     group**
 
-![](./media/image53.png)
+      ![](./media/image53.png)
 
 4.  In the **Delete Resources** pane that appears on the right side,
     navigate to **Enter “resource group name” to confirm deletion**
