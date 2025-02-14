@@ -67,8 +67,8 @@ exercise; and assumes your user account has sufficient permissions in
 the subscription to create an Azure Databricks workspace resource.
 
 If the script fails due to insufficient quota or permissions, you can
-try to [create an Azure Databricks workspace interactively in the Azure
-portal](https://learn.microsoft.com/azure/databricks/getting-started/#--create-an-azure-databricks-workspace).
+try to create an Azure Databricks workspace interactively in the Azure
+portal
 
 ## Task 0: Sync Host environment time
 
