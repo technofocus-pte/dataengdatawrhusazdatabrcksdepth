@@ -181,16 +181,15 @@ portal
 
      ![](./media/image15.png)
 
-> ***Note 1**: If you have previously created a cloud shell that uses
-> a Bash environment, use the the drop-down menu at the top left of the
-> cloud shell pane to change it to **PowerShell**.*
->
-> ***Note 2:** that you can resize the cloud shell by dragging the
-> separator bar at the top of the pane, or by using the **—**, **◻**,
-> and **X** icons at the top right of the pane to minimize, maximize,
-> and close the pane. For more information about using the Azure Cloud
-> Shell, see the [Azure Cloud Shell
-> documentation](https://docs.microsoft.com/azure/cloud-shell/overview).*
+    > ***Note 1**: If you have previously created a cloud shell that uses
+    > a Bash environment, use the the drop-down menu at the top left of the
+    > cloud shell pane to change it to **PowerShell**.*
+    >
+    > ***Note 2:** that you can resize the cloud shell by dragging the
+    > separator bar at the top of the pane, or by using the **—**, **◻**,
+    > and **X** icons at the top right of the pane to minimize, maximize,
+    > and close the pane. For more information about using the Azure Cloud
+    > Shell, see the Azure Cloud Shell documentation
 
 4.  At the Power Shell prompt, run the below command to clone the
     project
