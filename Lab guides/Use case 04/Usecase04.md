@@ -1,4 +1,4 @@
-## **Use case 04-Responsible AI with Large Language Models using Azure
+## Use case 04-Responsible AI with Large Language Models using Azure
 Databricks and Azure OpenAI**
 
 **Introduction**
