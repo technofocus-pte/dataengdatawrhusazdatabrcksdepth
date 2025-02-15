@@ -375,30 +375,31 @@ start.
         SELECT Category, COUNT(*) AS Number_of_Products
         FROM main.sales.products
         GROUP BY Category;
+    
         ```
 
-2.  Ensure serverless compute is connected, and run the query to see the
+3.  Ensure serverless compute is connected, and run the query to see the
     results.
 
       ![](./media/image53.png)
      
       ![](./media/image54.png)
 
-3.  **Save** the query as Products by Category in the workspace folder
+4.  **Save** the query as Products by Category in the workspace folder
     for your Azure Databricks user account.
 
       ![](./media/image55.png)
      
       ![](./media/image56.png)
 
-4.  Return to the **Catalog** page. Then expand the **main** catalog and
+5.  Return to the **Catalog** page. Then expand the **main** catalog and
     the **sales** schema, and select the **products** table.
 
       ![](./media/image57.png)
      
       ![](./media/image58.png)
 
-5.  On the **Lineage** tab, select **Queries** to verify that the
+6.  On the **Lineage** tab, select **Queries** to verify that the
     lineage from the query you created to the source table has been
     tracked by Unity Catalog.
 
