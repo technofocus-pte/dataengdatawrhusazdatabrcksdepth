@@ -1,715 +1,441 @@
-# Use case 02 - Real-Time Streaming with Azure Databricks and Event Hubs
+# Use case 02-Explore Unity Catalog in Azure Databricks
 
-**Introduction:**
+Unity Catalog offers a centralized governance solution for data and AI,
+simplifying security by providing a single place to administer and audit
+data access. In this exercise, you'll configure Unity Catalog for an
+Azure Databricks workspace and use it to manage data.
 
-In this lab, you will explore real-time streaming capabilities using
-Azure Databricks. Real-time streaming allows you to process and analyze
-data as it arrives, enabling timely insights and actions. Azure
-Databricks provides a powerful platform for building and managing
-real-time data pipelines, leveraging Apache Spark's streaming
-capabilities.
+**Note**: In some cases, Unity Catalog may already be enabled for your
+workspace. You can still follow the steps in this exercise to assign a
+new storage account for your catalog.
 
-**Objective:**
+This lab will take approximately **45** minutes to complete.
 
-- Set up a real-time streaming environment in Azure Databricks.
+**Note**: The Azure Databricks user interface is subject to continual
+improvement. The user interface may have changed since the instructions
+in this exercise were written.
 
-- Ingest and process streaming data from various sources.
+**Before you start**
 
-- Implement transformations and aggregations on streaming data.
+You'll need an [Azure subscription](https://azure.microsoft.com/free) in
+which you have global administrator rights.
 
-- Visualize and analyze real-time data using Databricks notebooks.
+**IMPORTANT**: This exercise assumes you have *Global
+Administrator* rights in your Azure subscription. This level of access
+is required to manage the Databricks account in order to enable Unity
+Catalog in an Azure Databricks workspace.
 
-- Integrate real-time streaming with other Azure services for end-to-end
-  data processing.
+## Task 1: Create an Azure Databricks workspace
 
-## Task 1: Create Azure Event Hubs Service 
+**Tip**: If you already have a premium tier Azure Databricks workspace,
+you can skip this procedure and use your existing workspace.
 
-1.  Open your browser, navigate to the address bar, type or paste the
-    following URL: +++https://portal.azure.com/+++, then press the
-    **Enter** button.
-
-2.  In the **Sign in** window, enter the **Username** and click on the
-    **Next** button.
-
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image1.png)
-
-3.  Then, enter the password and click on the **Sign in** button**.**
-
-> ![A login screen with a log in box Description automatically
-> generated](./media/image2.png)
-
-4.  In **Stay signed in?** window, click on the **Yes** button.
-
-> ![Graphical user interface, application Description automatically
-> generated](./media/image3.png)
-
-5.  On **Welcome to Microsoft Azure** dialog box, click on **Maybe
-    later** button.
-
-> ![A screenshot of a computer Description automatically
-> generated](./media/image4.png)
-
-6.  Open the Azure portal, type +++**Event Hubs+++** in the search bar
-    and click **Event Hubs**.
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image5.png)
-
-7.  Select **+ Create**.
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image6.png)
-
-8.  In the **Create Namespace** window, under the **Basics** tab, enter
-    the following details and click on the **Next:Advanced\>** button.
-
-    1.  **Subscription**: Select the assigned subscription
-
-    2.  **Resource group:** Click on **Create new**\>
-        +++**RG-Databricks21**+++
-
-    3.  **Namespace name:** Enter namespace as
-        +++**eh-namespace-demo**+++
-
-    4.  **Location**: West US
-
-    5.  **Pricing tier**: Select **Basic**
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image7.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image8.png)
-
-9.  In the **Advanced** tab, leave all in the default state, and click
-    on the **Next:Networking** button
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image9.png)
-
-10. In the **Tag** tab, select **Review+create**
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image10.png)
-
-11. In the **Review + submit** tab, once the Validation is Passed, click
-    on the **Create** button.
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image11.png)
-
-12. Wait for the deployment to complete. The deployment will take around
-    2-3 minutes.
-
-> ![A screenshot of a computer Description automatically
-> generated](./media/image12.png)
-
-13. After the deployment is completed, click on **Go to resource**
-    button.
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image13.png)
->
-> ![A screenshot of a computer Description automatically
-> generated](./media/image14.png)
-
-14. On the Event Hubs Namespace home page, select **Event Hubs** under
-    the **Entities** section.![A screenshot of a computer AI-generated
-    content may be incorrect.](./media/image15.png)
-
-15. Select the **+ Event Hub**
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image16.png)
-
-16. In the **Create Event Hub** window, under the **Basics** tab, enter
-    the following details and click on the **Next:Capture\>** button.
-
-[TABLE]
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image17.png)
-
-17. Select **Review+create**
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image18.png)
-
-18. In the **Review + submit** tab, once the Validation is Passed, click
-    on the **Create** button.
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image19.png)
-
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image20.png)
-
-19. Now, click on the **eh-demo**
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image21.png)
-
-20. To crate event data , Select **Data Explorer** and click on the
-    **Send events**
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image22.png)
-
-21. Copy the following code and paste it into the 'Enter Payload' field,
-    then click on the '**Send**' button
-
-> {
->
-> "temperature": 20,
->
-> "humidity": 60,
->
-> "windSpeed": 10,
->
-> "windDirection": "NW",
->
-> "precipitation": 0,
->
-> "conditions": "Partly Cloudy"
->
-> }
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image23.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image24.png)
-
-22. Select **Data Explorer** and click on the **Send events**
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image22.png)
-
-23. Copy the following code and paste it into the 'Enter Payload' field,
-    then click on the '**Send**' button
-
-> {
->
-> "temperature": 50,
->
-> "humidity": 60,
->
-> "windSpeed": 50,
->
-> "windDirection": "SW",
->
-> "precipitation": 0,
->
-> "conditions": "Rain"
->
-> }
->
-> ![](./media/image25.png)
-
-24. Now , click on the View events
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image26.png)
-
-![](./media/image27.png)
-
-25. In the Event Hubs Instance home page, select 'Shared access
-    policies' under settings, and then click on '+Add![A screenshot of a
-    computer AI-generated content may be
-    incorrect.](./media/image28.png)
-
-26. In the **Add SAS Policy** tab enter the databricks and select
-    Listen. Click on the **Create** button
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image29.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image30.png)
-
-27. Copy the Primary connection string value into a notepad; we will use
-    it in the next task
-
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image31.png)
-
-## Task 2: Provision an Azure Databricks workspace
-
-1.  Login to +++https://portal.azure.com+++ using the Azure login
+1.  Login to +++<https://portal.azure.com+++> using the Azure login
     credentials. Search for +++**azure databricks**+++ from the search
     bar and select it.
 
 ![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image32.png)
+incorrect.](./media/image1.png)
 
-2.  Select **+ Create**.
+2.  Create an **Azure Databricks** resource with the following settings:
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image33.png)
+    1)  **Subscription**: *Select your Azure subscription*
 
-3.  Create an **Azure Databricks** resource with the following settings:
+    2)  **Resource group**: *Create a new resource group
+        named +++**msl-XX+++** (where "xxxxxxx" is a unique value)*
 
-    - **Subscription**: *Select the same Azure subscription that you
-      used to create your Azure OpenAI resource*
+    3)  **Workspace name**: databricks-xxxxxxx *(where "xxxxxxx" is the
+        value used in the resource group name)*
 
-    - **Resource group**: *The same resource group where you created
-      your Azure Event Hubs*
+    4)  **Region**: *Select any available region*
 
-    - **Region**: *The same region where you created Azure Event Hubs
-      resource*
+    5)  **Pricing tier**: *Premium* or *Trial*
 
-    - **Name**: Enter the name as **databricksXXXX** (XXXX*A unique
-      number of your choice)*
+    6)  **Managed Resource Group
+        name**: databricks-xxxxxxx-managed *(where "xxxxxxx" is the
+        value used in the resource group name)*
 
-    - **Pricing tier**: *Premium* 
-
-&nbsp;
-
-1.  Select **Review + create** and wait for deployment to complete. Then
-    go to the resource and launch the workspace.
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image34.png)
-
-4.  On the **Review** **+ create** tab, click on the **Create** button.
-
-> ![](./media/image35.png)
+> ![](./media/image2.png)
 >
-> ![](./media/image36.png)
+> ![](./media/image3.png)
 
-5.  Once created, click on **Go to resource**.
+3.  On the **Review + Create** tab, once the message in the ribbon
+    returns "**Validation passed**", verify your selections and
+    click **Create**.
 
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image37.png)
+> ![](./media/image4.png)
+>
+> ![A screenshot of a computer Description automatically
+> generated](./media/image5.png)
 
-6.  In the **Overview** page for your workspace, use the **Launch
-    Workspace** button to open your Azure Databricks workspace in a new
-    browser tab; signing in if prompted.
+4.  Wait several minutes while your deployment is in progress. Once
+    complete, click **Go to resource**.
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image38.png)
+> ![](./media/image6.png)
+>
+> ![A screenshot of a computer Description automatically
+> generated](./media/image7.png)
 
-## Task 3: Creating a ADLS Gen2Storage Account and Container. 
+## Task 2: Prepare storage for the catalog
 
-1.  In the Azure home search bar, search for “Storage accounts” and
-    select Storage accounts from the results.
+When using Unity Catalog in Azure Databricks, data is stored in an
+external store; which can be shared across multiple workspaces. In
+Azure, it's common to use an Azure Storage account with support for a
+Azure Data Lake Storage Gen2 hierarchical namespace for this purpose.
 
-![](./media/image39.png)
+1.  In Azure portal home page, search for +++**Storage account**+++ from
+    the search bar and select it.
 
-2.  Click on **+Create** button.
+> ![](./media/image8.png)
 
-![](./media/image40.png)
+2.  Select the **+Create**
 
-3.  On the page, enter the following details and click on the Next
-    button
+> ![](./media/image9.png)
 
-- **Subscription**: *Select your Azure subscription*
+1)  In the Azure portal, create a new **Storage account** resource with
+    the following settings:
 
-- **Resource group**: *Select the existing **RG-DatabricksXXX** resource
-  group where you created the Azure Databricks workspace.*
+2)  **Subscription**: *Select your Azure subscription*
 
-- **Storage account name**: storageazuredatabricksXX *(where "xx" is the
-  value used in the resource group name)*
+3)  **Resource group**: *Select the existing ***msl-xxxxxxx***  resource
+    group where you created the Azure Databricks workspace.*
 
-- **Region**: *Select the region where you created the Azure Databricks
-  workspace*
+4)  **Storage account name**: storeXXXX *(where "xx" is the value used
+    in the resource group name)*
 
-- **Primary service**: Azure Blob Storage or Azure Data Lake Storage
-  Gen2
+5)  **Region**: *Select the region where you created the Azure
+    Databricks workspace*
 
-- **Performance**: Standard
+6)  **Primary service**: Azure Blob Storage or Azure Data Lake Storage
+    Gen2
 
-- **Redundancy**: Locally-redundant storage (LRS) *(For a non-production
-  solution like this exercise, this option has lower cost and capacity
-  consumption benefits)*
+7)  **Performance**: Standard
 
-![](./media/image41.png)
+8)  **Redundancy**: Locally-redundant storage (LRS) *(For a
+    non-production solution like this exercise, this option has lower
+    cost and capacity consumption benefits)*
 
-4.  In **Advanced** tab, select **Enable hierarchical namespace** and
-    click on the **Review+ create**
+> ![](./media/image10.png)
+>
+> ![](./media/image11.png)
 
-![](./media/image42.png)
+3.  Select **Review + create** and wait for deployment to complete.
 
-5.  In the **Review + submit** tab, once the Validation is Passed, click
-    on the **Create** button.
+> ![](./media/image12.png)
 
-![](./media/image43.png)
+4.  When deployment has completed, go to the
+    deployed ***storexxxxxxx*** storage account resource
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image44.png)
+> ![](./media/image13.png)
 
-6.  Click the “**Go to resource button**”.
-
-![](./media/image45.png)
-
-7.  When deployment has completed, go to the
+5.  When deployment has completed, go to the
     deployed **storageazuredatabricksxx** storage account resource and
     use its **Storage browser** page to add a new blob container
-    named +++**metastore-demo+++**. This is where the data for your
-    Unity Catalog objects will be stored.
+    named +++**data+++**. This is where the data for your Unity Catalog
+    objects will be stored.
 
-![](./media/image46.png)
+> ![](./media/image14.png)
 
-![](./media/image47.png)
+![](./media/image15.png)
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image48.png)
+> ![A screenshot of a computer Description automatically
+> generated](./media/image16.png)
 
-## Task 4: Configure access to catalog storage
+## Task 3: Configure access to catalog storage
 
 To access the blob container you have created for Unity Catalog, your
 Azure Databricks workspace must use a managed account to connect to the
 storage account through an *access connector*.
 
 1.  On the Azure portal search bar, search for **Access Connector for
-    Azure Databricks**
+    Azure Databricks** and select it
 
-![](./media/image49.png)
+> ![](./media/image17.png)
 
 2.  Click the **+ Create** button.
 
-![](./media/image50.png)
+> ![](./media/image18.png)
 
 3.  In the Azure portal, create a new **Access connector for Azure
     Databricks** resource with the following settings:
 
-    - **Subscription**: *Select your Azure subscription*
+    1)  **Subscription**: *Select your Azure subscription*
 
-    - **Resource group**: *Select the existing  resource group where you
-      created the Azure Databricks workspace.*
+    2)  **Resource group**: *Select the
+        existing **msl-xxxxxxx** resource group where you created the
+        Azure Databricks workspace.*
 
-    - **Name**: connector-xxxxxxx *(where "xxxxxxx" is the value used in
-      the resource group name)*
+    3)  **Name**: connector-xxxxxxx *(where "xxxxxxx" is the value used
+        in the resource group name)*
 
-    - **Region**: *Select the region where you created the Azure
-      Databricks workspace*
+    4)  **Region**: *Select the region where you created the Azure
+        Databricks workspace*
 
-> ![](./media/image51.png)
+> ![](./media/image19.png)
 
-8.  In the **Review + submit** tab, once the Validation is Passed, click
+4.  In the **Review + submit** tab, once the Validation is Passed, click
     on the **Create** button.
 
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image52.png)
+> ![](./media/image20.png)
 
-9.  Click on the **Go to resource**
+4.  Click on the **Go to resource**
 
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image53.png)
+> ![](./media/image21.png)
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image54.png)
+5.  Copy and Save the Resource Id in notepad
 
-9.  Select **ConnecterXX**
+> ![](./media/image22.png)
 
-![](./media/image55.png)
+4.  Click on the **Home** button
 
-10. Copy and Save the Resource Id in notepad
+> ![](./media/image23.png)
 
-![](./media/image56.png)
+5.  Select the Storage account
 
-11. Select the **Storage account**
+> ![](./media/image24.png)
 
-![](./media/image57.png)
+6.  From the left menu, click on the **Access control(IAM).**
 
-12. From the left menu, click on the **Access control(IAM).**
-
-13. On the Access control(IAM) page, Click +**Add** and select **Add
+7.  On the Access control(IAM) page, Click +**Add** and select **Add
     role assignments.**
 
-![](./media/image58.png)
+> ![](./media/image25.png)
 
-14. Type the **Storage blob data contributor** in the search box and
-    select it. Click **Next**
+1.  In the **Job function roles** list, search for and select
+    the **Storage blob data contributor** role.
 
-![](./media/image59.png)
+> ![](./media/image26.png)
 
-15. In the **Add role assignment** tab, select **Managed identity** .
+4.  In the **Add role assignment** tab, select **Managed identity** .
     Under Members, click **+Select members**
 
-> ![](./media/image60.png)
+> ![](./media/image27.png)
 
-16. Select the connector-xxxxxxx access connector for Azure Databricks
-    you created previously (you can ignore any other access connectors
-    that have been created in your subscription)
+2.  Select **Next**. Then on the **Members** page, select the option to
+    assign access to a **Managed Identity** and then find and select
+    the connector-xxxxxxx access connector for Azure Databricks you
+    created previously (you can ignore any other access connectors that
+    have been created in your subscription)
 
-> ![](./media/image61.png)
+> ![](./media/image28.png)
+>
+> ![](./media/image29.png)
 
-17. In the **Add role assignment** page, Click **Review + Assign**, you
+5.  In the **Add role assignment** page, Click **Review + Assign**, you
     will get a notification once the role assignment is complete.
 
-![](./media/image62.png)
+> ![](./media/image30.png)
+>
+> ![](./media/image31.png)
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image63.png)
+3.  Select **Home** button
 
-18. Select **Home**
+> ![](./media/image32.png)
 
-![](./media/image64.png)
+## Task 4: Configure Unity Catalog
 
-## Task 5: Create a cluster
-
-Azure Databricks is a distributed processing platform that uses Apache
-Spark *clusters* to process data in parallel on multiple nodes. Each
-cluster consists of a driver node to coordinate the work, and worker
-nodes to perform processing tasks. In this exercise, you'll create
-a *single-node* cluster to minimize the compute resources used in the
-lab environment (in which resources may be constrained). In a production
-environment, you'd typically create a cluster with multiple worker
-nodes.
-
-**Tip**: If you already have a cluster with a 13.3 LTS **ML** or higher
-runtime version in your Azure Databricks workspace, you can use it to
-complete this exercise and skip this procedure.
+Now that you have created a blob storage container for your catalog and
+provided a way for an Azure Databricks managed identity to access it,
+you can configure Unity Catalog to use a metastore based on your storage
+account.
 
 1.  In the Azure portal home page select your Azure Databricks
     service(databricksXX)
 
-> ![](./media/image65.png)
-
-2.  In Azure Databricks home page, click on the **Launch Workspace**
-
-> ![](./media/image66.png)
-
-3.  In the sidebar on the left, select the **(+) New** task, and then
-    select **Cluster**.
-
 > ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image67.png)
+> incorrect.](./media/image33.png)
+
+2.  In the Azure portal, view the **msl-*xxxxxxx*** resource group,
+    which should now contain three resources:
+
+    1)  The **databricks-*xxxxxxx*** Azure Databricks workspace
+
+    2)  The **store*xxxxxxx*** storage account
+
+    3)  The **connector-*xxxxxxx*** access connector for Azure
+        Databricks
+
+> ![](./media/image34.png)
+
+3.  Open the **databricks-xxxxxxx** Azure Databricks workspace resource
+    you created and earlier, and on its **Overview** page, use
+    the **Launch Workspace** button to open your Azure Databricks
+    workspace in a new browser tab; signing in if prompted.
+
+> ![](./media/image35.png)
+
+4.  In the **databricks-*xxxxxxx*** menu at the top right,
+    select **Manage account** to open the Azure Databricks account
+    console in another tab.
+
+> ![A screenshot of a computer Description automatically
+> generated](./media/image36.png)
+>
+> ![](./media/image37.png)
+
+**Note**: If ***Manage account*** is not listed or doesn't successfully
+open, you may need to have a global administrator add your account to
+the ***Account Admin*** role in your Azure Databricks workspace.
+
+5.  Delete the existing **metastore**
+
+![](./media/image38.png)
+
+![](./media/image39.png)
+
+6.  In the Azure Databricks account console, on the **catalog** page,
+    select **Create metastore**.
+
+7.  Create a new metastore with the following settings:
+
+    1)  **Name**: metastore-xxxxxxx *(where xxxxxxx is the unique value
+        you've been using for resources in this exercise)*
+
+    2)  **Region**: *Select the region where you created your Azure
+        resources*
+
+    3)  **ADLS Gen 2
+        path**: **data@storexxxxxxx.dfs.core.windows.net/** *(where
+        storexxxxxx is the your storage account name)*
+
+    4)  **Access Connector Id**: *The **resource ID for your access
+        connector** (copied from its Overview page in the Azure portal)*
+
+> ![](./media/image40.png)
+
+8.  After creating the metastore, select
+    the **databricks-*xxxxxxx*** workspace and assign the metastore to
+    it.
+
+> ![](./media/image41.png)
+
+## Task 5: Work with data in Unity Catalog
+
+Now that you've assigned an eternal metastore and enabled Unity Catalog,
+you can use it to work with data in Azure Databricks.
+
+1.  Close the Azure Databricks account console browser tab and return to
+    the tab for your Azure Databricks workapace. Then refresh the
+    browser.
+
+2.  On the **Catalog** page, select the **Main** catalog for your
+    organization and note that schemas
+    named **default** and **Information_schema** have already been
+    created in your catalog.
+
+> ![](./media/image42.png)
+
+3.  Sin the **Catalog Explore** pane, select **Create
+    schema**![](./media/image43.png)
+
+4.  In the Create a new schema tab, enter the schema
+    name +++**sales+++** and click on the **Create** button
+
+> ![](./media/image44.png)
 >
 > ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image68.png)
+> incorrect.](./media/image45.png)
 
-4.  In the **New Cluster** page, create a new cluster with the following
-    settings:
+5.  In the Catalog explorer in Azure Databricks workspace, with
+    the **sales** schema selected, select **Create** \> **Create
+    table**.
 
-    - **Cluster name**: *User Name's* cluster (the default cluster name)
+> ![](./media/image46.png)
 
-    - **Policy**: Unrestricted
+6.  Click on **Browse for file**, navigate to **C:\Labfiles** location
+    and select **products.csv**, then click on the **Open** button.
 
-    - **Cluster mode**: Single Node
+> ![](./media/image47.png)
 
-    - **Access mode**: Single user (*with your user account selected*)
+7.  Select the Create table
 
-    - **Databricks runtime version**: *Select the Runtime12.2 LTS(scale
-      2.12, 4Cores)*
-
-    - **Node type**: Standard_DS3_v2
-
-    - **Terminate after** *20* **minutes of inactivity**
-
-&nbsp;
-
-4.  Wait for the cluster to be created. It may take a 5-7 minutes.
-
-**Note**: If your cluster fails to start, your subscription may have
-insufficient quota in the region where your Azure Databricks workspace
-is provisioned. See [CPU core limit prevents cluster
-creation](https://docs.microsoft.com/azure/databricks/kb/clusters/azure-core-limit) for
-details. If this happens, you can try deleting your workspace and
-creating a new one in a different region.
-
-![](./media/image69.png)
-
-> ![](./media/image70.png)
-
-5.  In your cluster's page, select the **Libraries** tab.
-
-> ![](./media/image71.png)
-
-6.  Select **Install New**.
-
-> ![](./media/image72.png)
-
-7.  Select **Maven** as the library source and select **Search
-    Packeges**
-
-> ![](./media/image73.png)
-
-8.  In the **Search packages** tab, select **'Maven Central'** and enter
-    **'+++eventhubs-spark+++**' in the search field. Then, select the
-    latest version![](./media/image74.png)
-
-9.  Click on **Install**
-
-> ![](./media/image75.png)
-
-![](./media/image76.png)
-
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image77.png)
-
-9.  In the dropdown menu, select 'Settings' to access various
-    configuration options.
-
-> ![](./media/image78.png)
-
-10. In the Databricks workspace settings, navigate to the 'Advanced'
-    section to configure options, DBFS File Browser is On.
-
-> ![](./media/image79.png)
-
-## Task 6: Configure Unity Catalog
-
-1.  Navigate to the top right corner of your **Databricks workspace**,
-    click on your account name (e.g., 'databricks21'), and select
-    **'Manage account**' from the dropdown menu to access and modify
-    your account settings
-
-> ![](./media/image80.png)
-
-2.  Select **Catalog** and select existing **Metastores**
-
-> ![](./media/image81.png)
-
-3.  Delete existing metastore
-
-> ![](./media/image82.png)
-
-4.  In Catalog pane, select **Create metastore**
-
-> ![](./media/image83.png)
-
-5.  In Create metastore pane enter the following details and select
-    Create
-
-&nbsp;
-
-1)  Name: Enter the MetastoreXX
-
-2)  Region : Westus
-
-ADLS Gen 2 path:
-\<***container\>@\<storage_account_name\>.dfs.core.windows.net/***
-
-3)  **Access Connector Id: Enter Access Connector for Azure Databricks
-    resource ID which you have saved in Task 4\> Step 10**
-
-> ![](./media/image84.png)
-
-6.  Assign the 'databricks21' metastore to the selected workspace by
-    clicking on the 'Assign' button
-
-> ![](./media/image85.png)
-
-7.  Click on the Enable button
-
-> ![](./media/image86.png)
-
-## Task 7: Real-time Data Processing with Azure Databricks
-
-1.  Navigate to the 'Workspace' section by clicking on 'Workspace' in
-    the left-hand menu, then expand the 'Workspace' folder in the main
-    panel.
-
-> ![](./media/image87.png)
-
-2.  In the 'Users' section, Select the user with the email
-
-![](./media/image88.png)
-
-3.  To import files into your Databricks workspace, click on the
-    ellipsis icon next to 'Send feedback,' and select '**Import**' from
-    the dropdown menu
-
-![](./media/image89.png)
-
-4.  In the Import dialog box, select the 'File' option, then click
-    'Browse' to locate and upload your file
-
-> ![](./media/image90.png)
-
-5.  Navigate to **C:\Labfiles** location and select **Real-time Data
-    Processing with Azure Databricks (and Event Hubs)**, then click on
-    the **Open** button.
-
-> ![](./media/image91.png)
-
-6.  Click on the **Import**
-
-> ![](./media/image92.png)
-
-7.  Select **Notebook**
-
-> ![](./media/image93.png)
-
-8.  Start the **cluster**
-
-> ![](./media/image94.png)
+> ![](./media/image48.png)
 >
-> ![](./media/image95.png)
+> ![A screenshot of a computer AI-generated content may be
+> incorrect.](./media/image49.png)
 
-9.  Select the 1^(st) cell and run the cell
+**Note**: You may need to wait a few minutes for serverless compute to
+start.
 
-> ![](./media/image96.png)
+## Task 6:Manage permissions
 
-10. Select the 2^(nd) cell and run the cell
-
-> ![](./media/image97.png)
-
-11. To check the models loaded in your Databricks workspace, navigate to
-    the "Catalog" section in the left sidebar. Here, you can explore
-    different layers such as "bronze," "silver," and "gold" to find the
-    models you have loaded
-
-![](./media/image98.png)
-
-12. Select the 3^(rd) cell and replace the event hub name and Paste
-    connection string. Run the cell
-
-![](./media/image99.png)
-
-![](./media/image100.png)
-
-13. Select the 4^(th) cell and run the cell
+1.  With the **products** table selected, on the **Permissions** tab
+    verify that by default there are no permissions assigned for the new
+    table (you can access it because you have full administrative
+    rights, but no other users can query the table).
 
 ![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image101.png)
+incorrect.](./media/image50.png)
 
-14. Click on the **Interrupt**
+2.  Select **Grant**, and configure access to the table as follows:
 
-![](./media/image102.png)
+    - **Principals**: All account users
 
-15. Defining the schema for the JSON object, select cell and click on
-    the run
+    - **Privileges**: SELECT
 
-![](./media/image103.png)
+    - **Additional privileges required for access**: Also grant USE
+      SCHEMA on main.sales
 
-16. Select the cell and run the cell.
+> ![](./media/image51.png)
 
+## Task 7: Track lineage
+
+1.  On the **+ New** menu, select **Query** and create a new query with
+    the following SQL
+
+> ![](./media/image52.png)
+>
+> Copy:
+>
+> SELECT Category, COUNT(\*) AS Number_of_Products
+>
+> FROM main.sales.products
+>
+> GROUP BY Category;
+
+2.  Ensure serverless compute is connected, and run the query to see the
+    results.
+
+> ![](./media/image53.png)
+>
+> ![](./media/image54.png)
+
+3.  **Save** the query as Products by Category in the workspace folder
+    for your Azure Databricks user account.
+
+> ![](./media/image55.png)
+>
+> ![](./media/image56.png)
+
+4.  Return to the **Catalog** page. Then expand the **main** catalog and
+    the **sales** schema, and select the **products** table.
+
+> ![](./media/image57.png)
+>
 > ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image104.png)
+> incorrect.](./media/image58.png)
 
-17. Select the Interrupt the cell
+5.  On the **Lineage** tab, select **Queries** to verify that the
+    lineage from the query you created to the source table has been
+    tracked by Unity Catalog.
 
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image105.png)
+> ![Screenshot of the table linage view in an Azure Databricks
+> workspace.](./media/image59.png)
 
-18. Reading, aggregating and writing the stream from the silver to the
-    gold layer. Select the cell and run the cell
-
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image106.png)
-
-## Task 8 : Clean up
+**Task 8: Clean up**
 
 1.  Navigate to **Azure portal Home** page, click on **Resource
     groups**.
 
-> ![](./media/image107.png)
+> ![](./media/image60.png)
 
 2.  Click on the resource group.
-
-> ![](./media/image108.png)
 
 3.  In the **Resource group** home page, select the **delete resource
     group**
 
-> ![](./media/image109.png)
+> ![](./media/image61.png)
 
 4.  In the **Delete Resources** pane that appears on the right side,
     navigate to **Enter “resource group name” to confirm deletion**
     field, then click on the **Delete** button
-
-![](./media/image110.png)
