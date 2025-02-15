@@ -194,9 +194,9 @@ portal
 4.  At the Power Shell prompt, run the below command to clone the
     project
 
-        +++rm -r mslearn-databricks -f+++
+        rm -r mslearn-databricks -f
 
-        +++git clone https://github.com/MicrosoftLearning/mslearn-databricks+++
+        git clone https://github.com/MicrosoftLearning/mslearn-databricks
 
       ![](./media/image16.png)
 
