@@ -1,194 +1,402 @@
-**Use case 03-Responsible AI with Large Language Models using Azure
-Databricks and Azure OpenAI**
+# Use case 03 - Real-Time Streaming with Azure Databricks and Event Hubs
 
-**Introduction**
+**Introduction:**
 
-Integrating Large Language Models (LLMs) into Azure Databricks and Azure
-OpenAI offers a powerful platform for responsible AI development. These
-sophisticated transformer-based models excel in natural language
-processing tasks, enabling developers to innovate rapidly while adhering
-to principles of fairness, reliability, safety, privacy, security,
-inclusiveness, transparency, and accountability.
+In this lab, you will explore real-time streaming capabilities using
+Azure Databricks. Real-time streaming allows you to process and analyze
+data as it arrives, enabling timely insights and actions. Azure
+Databricks provides a powerful platform for building and managing
+real-time data pipelines, leveraging Apache Spark's streaming
+capabilities.
 
-**Note**: The Azure Databricks user interface is subject to continual
-improvement. The user interface may have changed since the instructions
-in this exercise were written.
+**Objective:**
 
-## Task 1: Provision an Azure OpenAI resource
+- Set up a real-time streaming environment in Azure Databricks.
 
-1.  In Azure portal, click on **portal menu** represented by three
-    horizontal bars on the top left corner of page, as shown in the
-    below image.
+- Ingest and process streaming data from various sources.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image1.png)
+- Implement transformations and aggregations on streaming data.
 
-2.  Navigate and click on **+ Create a resource**.
+- Visualize and analyze real-time data using Databricks notebooks.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image2.png)
+- Integrate real-time streaming with other Azure services for end-to-end
+  data processing.
 
-3.  On **Create a resource** page, in the **Search services and
-    marketplace** search bar, type **Azure OpenAI**, then press the
+## Task 1: Create Azure Event Hubs Service 
+
+1.  Open your browser, navigate to the address bar, type or paste the
+    following URL: +++https://portal.azure.com/+++, then press the
     **Enter** button.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image3.png)
+2.  In the **Sign in** window, enter the **Username** and click on the
+    **Next** button.
 
-4.  In the **Marketplace** page, navigate to the **Azure OpenAI** tile,
-    click on the V chevron button beside **Create**, then navigate and
-    click on the **Azure OpenAI** as shown in the below image.
+     ![](./media/image1.png)
 
-> ![](./media/image4.png)
+3.  Then, enter the password and click on the **Sign in** button**.**
 
-5.  In the **Create Azure OpenAI** window, under the **Basics** tab,
-    enter the following details and click on the **Next** button.
+      ![](./media/image2.png)
 
-    1.  **Subscription**: Select the assigned subscription
+4.  In **Stay signed in?** window, click on the **Yes** button.
 
-    2.  **Resource group:** Click on **Create new**\>
+      ![](./media/image3.png)
+
+5.  On **Welcome to Microsoft Azure** dialog box, click on **Maybe
+    later** button.
+
+      ![](./media/image4.png)
+
+6.  Open the Azure portal, type +++**Event Hubs+++** in the search bar
+    and click **Event Hubs**.
+
+      ![](./media/image5.png)
+
+7.  Select **+ Create**.
+
+      ![](./media/image6.png)
+
+8.  In the **Create Namespace** window, under the **Basics** tab, enter
+    the following details and click on the **Next:Advanced\>** button.
+
+    a.  **Subscription**: Select the assigned subscription
+
+    b.  **Resource group:** Click on **Create new**\>
         +++**RG-Databricks21**+++
 
-    3.  **Region**: East US 2/North Central US/Sweden
-        Central/Switzerland West
+    c.  **Namespace name:** Enter namespace as
+        +++**eh-namespace-demo**+++
 
-    4.  **Name**: **aoai-databricksXXXXX** (XXXXX can be Lab instant ID)
+    d.  **Location**: West US
 
-    5.  **Pricing tier**: Select **Standard S0**
+    e.  **Pricing tier**: Select **Basic**
 
-> Note: To find your lab instant ID, select 'Help' and copy the instant
-> ID.
->
-> ![](./media/image5.png)
->
-> ![](./media/image6.png)
+      ![](./media/image7.png)
+      ![](./media/image8.png)
 
-6.  In the **Network** tab, leave all the radio buttons in the default
-    state, and click on the **Next** button.
+9.  In the **Advanced** tab, leave all in the default state, and click
+    on the **Next:Networking** button
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image7.png)
+     ![](./media/image9.png)
 
-7.  In the **Tags** tab, leave all the fields in the default state, and
-    click on the **Next** button.
+10. In the **Tag** tab, select **Review+create**
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image8.png)
+      ![](./media/image10.png)
 
-8.  In the **Review + submit** tab, once the Validation is Passed, click
+11. In the **Review + submit** tab, once the Validation is Passed, click
     on the **Create** button.
 
-> ![](./media/image9.png)
+     ![](./media/image11.png)
 
-9.  Wait for the deployment to complete. The deployment will take around
+12. Wait for the deployment to complete. The deployment will take around
     2-3 minutes.
 
-10. On **Microsoft.CognitiveServicesOpenAI** window, after the
-    deployment is completed, click on **Go to resource** button.
+     ![](./media/image12.png)
 
-> ![](./media/image10.png)
-
-11. Click on **Keys and Endpoints** from the left navigation menu and
-    then copy the endpoint value in a notepad to **ENDPOINT** and key to
-    a variable **Key1**.
-
-![](./media/image11.png)
-
-> ![](./media/image12.png)
-
-## Task 2: Deploy the required model
-
-Azure provides a web-based portal named **Azure AI Foundry Studio**,
-that you can use to deploy, manage, and explore models. You'll start
-your exploration of Azure OpenAI by using Azure AI Studio to deploy a
-model.
-
-1.  In the Azure portal, on the **Overview** page for your Azure OpenAI
-    resource, select the button to go to **Go to Azure Foundry portal**.
-
-> ![](./media/image13.png)
-
-2.  On the **Azure AI Foundry | Azure Open AI Service** homepage,
-    navigate to **Components** section and click on **Deployments**.
-
-> ![](./media/image14.png)
-
-3.  In the **Deployments** window, drop down the **+Deploy model** and
-    select **Deploy base model.**
-
-![](./media/image15.png)
-
-4.  In the **Select a model** dialog box, navigate and carefully select
-    **gpt-35-turbo**, then click on **Confirm** button.
-
-![](./media/image16.png)
-
-4.  In the **Deploy model gpt-35-turbo** dialog box, under the
-    **Deployment name** field, ensure that **gpt-35-turbo**, select the
-    Deployment type as **Standard**. Then click on the **Deploy**
+13. After the deployment is completed, click on **Go to resource**
     button.
 
-![](./media/image17.png)
+     ![](./media/image13.png)
+     ![](./media/image14.png)
 
-![A screenshot of a computer Description automatically
-generated](./media/image18.png)
+14. On the Event Hubs Namespace home page, select **Event Hubs** under
+    the **Entities** section.
+     ![](./media/image15.png)
 
-\* A rate limit of 5,000 tokens per minute is more than adequate to
-complete this exercise while leaving capacity for other people using the
-same subscription.
+15. Select the **+ Event Hub**
 
-## Task 3:Provision an Azure Databricks workspace
+      ![](./media/image16.png)
 
-1.  Login to +++<https://portal.azure.com+++> using the Azure login
-    credentials. Search for +++**azure databricks**+++ from the search
+16. In the **Create Event Hub** window, under the **Basics** tab, enter
+    the following details and click on the **Next:Capture\>** button.
+
+    |   |    |
+    |-----|----|
+    |Name|	Enter name +++eh-demo+++|
+    |Partition count|	2|
+    |Cleanup policy	|Delete|
+    |Retention time|	1|
+
+
+      ![](./media/image17.png)
+
+17. Select **Review+create**
+
+     ![](./media/image18.png)
+
+18. In the **Review + submit** tab, once the Validation is Passed, click
+    on the **Create** button.
+
+     ![](./media/image19.png)
+     ![](./media/image20.png)
+
+19. Now, click on the **eh-demo**
+
+     ![](./media/image21.png)
+
+20. To crate event data , Select **Data Explorer** and click on the
+    **Send events**
+
+      ![](./media/image22.png)
+
+21. Copy the following code and paste it into the 'Enter Payload' field,
+    then click on the '**Send**' button
+
+    ```
+    {
+        "temperature": 20,
+        "humidity": 60,
+        "windSpeed": 10,
+        "windDirection": "NW",
+        "precipitation": 0,
+        "conditions": "Partly Cloudy"
+    }
+    ```
+    ![](./media/image23.png)
+    ![](./media/image24.png)
+
+22. Select **Data Explorer** and click on the **Send events**
+
+      ![](./media/image22.png)
+
+23. Copy the following code and paste it into the 'Enter Payload' field,
+    then click on the '**Send**' button
+
+        ```
+        {
+            "temperature": 50,
+            "humidity": 60,
+            "windSpeed": 50,
+            "windDirection": "SW",
+            "precipitation": 0,
+            "conditions": "Rain"
+        }
+        ```
+      ![](./media/image25.png)
+
+24. Now , click on the View events
+
+     ![](./media/image26.png)
+    
+     ![](./media/image27.png)
+
+25. In the Event Hubs Instance home page, select 'Shared access
+    policies' under settings, and then click on **+Add**
+     ![](./media/image28.png)
+
+27. In the **Add SAS Policy** tab enter the databricks and select
+    Listen. Click on the **Create** button
+
+     ![](./media/image29.png)
+     ![](./media/image30.png)
+
+27. Copy the Primary connection string value into a notepad; we will use
+    it in the next task
+
+      ![](./media/image31.png)
+
+## Task 2: Provision an Azure Databricks workspace
+
+1.  Login to +++https://portal.azure.com+++ using the Azure login
+    credentials. Search for +++azure databricks+++ from the search
     bar and select it.
 
-![](./media/image19.png)
+      ![](./media/image32.png)
 
 2.  Select **+ Create**.
 
-![](./media/image20.png)
+      ![](./media/image33.png)
 
 3.  Create an **Azure Databricks** resource with the following settings:
 
-    - **Subscription**: *Select the same Azure subscription that you
+    a) **Subscription**: *Select the same Azure subscription that you
       used to create your Azure OpenAI resource*
 
-    - **Resource group**: *The same resource group where you created
-      your Azure OpenAI resource*
+    b) **Resource group**: *The same resource group where you created
+      your Azure Event Hubs*
 
-    - **Region**: *The same region where you created your Azure OpenAI
+    c) **Region**: *The same region where you created Azure Event Hubs
       resource*
 
-    - **Name**: Enter the name as **databricksXXXX** (XXXX*A unique
+    d) **Name**: Enter the name as **databricksXXXX** (XXXX*A unique
       number of your choice)*
 
-    - **Pricing tier**: *Premium* 
+    e) **Pricing tier**: *Premium* 
 
-&nbsp;
 
-1.  Select **Review + create** and wait for deployment to complete. Then
+
+4.  Select **Review + create** and wait for deployment to complete. Then
     go to the resource and launch the workspace.
 
-> ![](./media/image21.png)
+      ![](./media/image34.png)
 
-4.  On the **Review** **+ create** tab, click on the **Create** button.
+5.  On the **Review** **+ create** tab, click on the **Create** button.
 
-> ![](./media/image22.png)
->
-> ![](./media/image23.png)
+      ![](./media/image35.png)
+     
+      ![](./media/image36.png)
 
 5.  Once created, click on **Go to resource**.
 
-> ![](./media/image24.png)
+      ![](./media/image37.png)
 
 6.  In the **Overview** page for your workspace, use the **Launch
     Workspace** button to open your Azure Databricks workspace in a new
     browser tab; signing in if prompted.
 
-![](./media/image25.png)
+      ![](./media/image387.png)
 
-## Task 4: Create a cluster
+## Task 3: Creating a ADLS Gen2Storage Account and Container. 
+
+1.  In the Azure home search bar, search for “Storage accounts” and
+    select Storage accounts from the results.
+
+     ![](./media/image39.png)
+
+2.  Click on **+Create** button.
+
+      ![](./media/image40.png)
+
+3.  On the page, enter the following details and click on the Next
+    button
+
+    - **Subscription**: *Select your Azure subscription*
+    
+    - **Resource group**: *Select the existing **RG-DatabricksXXX** resource
+      group where you created the Azure Databricks workspace.*
+    
+    - **Storage account name**: storageazuredatabricksXX *(where "xx" is the
+      value used in the resource group name)*
+    
+    - **Region**: *Select the region where you created the Azure Databricks
+      workspace*
+    
+    - **Primary service**: Azure Blob Storage or Azure Data Lake Storage
+      Gen2
+    
+    - **Performance**: Standard
+    
+    - **Redundancy**: Locally-redundant storage (LRS) *(For a non-production
+      solution like this exercise, this option has lower cost and capacity
+      consumption benefits)*
+
+        ![](./media/image41.png)
+
+4.  In **Advanced** tab, select **Enable hierarchical namespace** and
+    click on the **Review+ create**
+
+      ![](./media/image42.png)
+
+5.  In the **Review + submit** tab, once the Validation is Passed, click
+    on the **Create** button.
+
+      ![](./media/image43.png)
+
+       ![](./media/image44.png)
+
+6.  Click the “**Go to resource button**”.
+
+      ![](./media/image45.png)
+
+7.  When deployment has completed, go to the
+    deployed **storageazuredatabricksxx** storage account resource and
+    use its **Storage browser** page to add a new blob container
+    named +++metastore-demo+++. This is where the data for your
+    Unity Catalog objects will be stored.
+
+     ![](./media/image46.png)
+     
+     ![](./media/image47.png)
+    
+     ![](./media/image48.png)
+
+## Task 4: Configure access to catalog storage
+
+To access the blob container you have created for Unity Catalog, your
+Azure Databricks workspace must use a managed account to connect to the
+storage account through an *access connector*.
+
+1.  On the Azure portal search bar, search for **Access Connector for
+    Azure Databricks**
+
+      ![](./media/image49.png)
+
+2.  Click the **+ Create** button.
+
+     ![](./media/image50.png)
+
+3.  In the Azure portal, create a new **Access connector for Azure
+    Databricks** resource with the following settings:
+
+    - **Subscription**: Select your Azure subscription
+
+    - **Resource group**: Select the existing  resource group where you
+      created the Azure Databricks workspace.
+
+    - **Name**: connector-xxxxxxx(where "xxxxxxx" is the value used in
+      the resource group name)
+
+    - **Region**: *Select the region where you created the Azure
+      Databricks wrkspace
+
+      ![](./media/image51.png)
+
+8.  In the **Review + submit** tab, once the Validation is Passed, click
+    on the **Create** button.
+
+      ![](./media/image52.png)
+
+9.  Click on the **Go to resource**
+
+     ![](./media/image53.png)
+     ![](./media/image54.png)
+
+10.  Select **ConnecterXX**
+
+      ![](./media/image55.png)
+
+11. Copy and Save the Resource Id in notepad
+
+     ![](./media/image56.png)
+
+11. Select the **Storage account**
+
+      ![](./media/image57.png)
+
+12. From the left menu, click on the **Access control(IAM).**
+
+13. On the Access control(IAM) page, Click +**Add** and select **Add
+    role assignments.**
+
+     ![](./media/image58.png)
+
+14. Type the **Storage blob data contributor** in the search box and
+    select it. Click **Next**
+
+      ![](./media/image59.png)
+
+15. In the **Add role assignment** tab, select **Managed identity** .
+    Under Members, click **+Select members**
+
+       ![](./media/image60.png)
+
+16. Select the connector-xxxxxxx access connector for Azure Databricks
+    you created previously (you can ignore any other access connectors
+    that have been created in your subscription)
+
+      ![](./media/image61.png)
+
+17. In the **Add role assignment** page, Click **Review + Assign**, you
+    will get a notification once the role assignment is complete.
+
+      ![](./media/image62.png)
+
+     ![](./media/image63.png)
+
+18. Select **Home**
+
+     ![](./media/image64.png)
+
+## Task 5: Create a cluster
 
 Azure Databricks is a distributed processing platform that uses Apache
 Spark *clusters* to process data in parallel on multiple nodes. Each
@@ -203,14 +411,22 @@ nodes.
 runtime version in your Azure Databricks workspace, you can use it to
 complete this exercise and skip this procedure.
 
-1.  In the sidebar on the left, select the **(+) New** task, and then
+1.  In the Azure portal home page select your Azure Databricks
+    service(databricksXX)
+
+      ![](./media/image65.png)
+
+2.  In Azure Databricks home page, click on the **Launch Workspace**
+
+      ![](./media/image66.png)
+
+3.  In the sidebar on the left, select the **(+) New** task, and then
     select **Cluster**.
 
-> ![](./media/image26.png)
->
-> ![](./media/image27.png)
+     ![](./media/image67.png)
+     ![](./media/image68.png)
 
-2.  In the **New Cluster** page, create a new cluster with the following
+4.  In the **New Cluster** page, create a new cluster with the following
     settings:
 
     - **Cluster name**: *User Name's* cluster (the default cluster name)
@@ -221,251 +437,214 @@ complete this exercise and skip this procedure.
 
     - **Access mode**: Single user (*with your user account selected*)
 
-    - **Databricks runtime version**: *Select the **ML** edition of the
-      latest non-beta version of the runtime (**Not** a Standard runtime
-      version) that:*
+    - **Databricks runtime version**: *Select the Runtime12.2 LTS(scale
+      2.12, 4Cores)*
 
-      - *Does **not** use a GPU*
-
-      - *Includes Scala \> **2.11***
-
-      - *Includes Spark \> **3.4***
-
-    - **Use Photon Acceleration**: Unselected
-
-    - **Node type**: Standard_D4ds_v5
+    - **Node type**: Standard_DS3_v2
 
     - **Terminate after** *20* **minutes of inactivity**
 
 &nbsp;
 
-4.  Wait for the cluster to be created. It may take a minute or two.
+5.  Wait for the cluster to be created. It may take a 5-7 minutes.
 
-**Note**: If your cluster fails to start, your subscription may have
-insufficient quota in the region where your Azure Databricks workspace
-is provisioned. See [CPU core limit prevents cluster
-creation](https://docs.microsoft.com/azure/databricks/kb/clusters/azure-core-limit) for
-details. If this happens, you can try deleting your workspace and
-creating a new one in a different region.
+    **Note**: If your cluster fails to start, your subscription may have
+    insufficient quota in the region where your Azure Databricks workspace
+    is provisioned. See CPU core limit prevents cluster creation for
+    details. If this happens, you can try deleting your workspace and
+    creating a new one in a different region.
 
-![](./media/image28.png)
+      ![](./media/image69.png)
+    
+      ![](./media/image70.png)
 
-![](./media/image29.png)
+6.  In your cluster's page, select the **Libraries** tab.
 
-## Task 5: Install required libraries
+      ![](./media/image71.png)
 
-1.  In your cluster's page, select the **Libraries** tab.
+7.  Select **Install New**.
 
-> ![](./media/image30.png)
+      ![](./media/image72.png)
 
-2.  Select **Install New**.
+8.  Select **Maven** as the library source and select **Search
+    Packeges**
 
-> ![](./media/image31.png)
+      ![](./media/image73.png)
 
-3.  Select **PyPI** as the library source and
-    install +++openai==1.42.0+++
+9.  In the **Search packages** tab, select **'Maven Central'** and enter
+    **+++eventhubs-spark+++** in the search field. Then, select the
+    latest version
+     ![](./media/image74.png)
 
-> ![](./media/image32.png)
->
-> ![A screenshot of a computer Description automatically
-> generated](./media/image33.png)
+9.  Click on **Install**
 
-## Task 6: Create a new notebook
+      ![](./media/image75.png)
 
-1.  In the sidebar, use the **(+) New** link to create a **Notebook**.
+      ![](./media/image76.png)
 
-> ![](./media/image34.png)
+      ![](./media/image77.png)
 
-2.  Name your notebook and in the **Connect** drop-down list, select
-    your cluster if it is not already selected. If the cluster is not
-    running, it may take a minute or so to start.
+9.  In the dropdown menu, select 'Settings' to access various
+    configuration options.
 
-> ![](./media/image35.png)
+     ![](./media/image78.png)
 
-3.  In the first cell of the notebook, run the following code to install
-    python libraries
+10. In the Databricks workspace settings, navigate to the 'Advanced'
+    section to configure options, DBFS File Browser is On.
 
-> pip install openai==1.55.3 httpx==0.27.2
->
-> ![](./media/image36.png)
+      ![](./media/image79.png)
 
-4.  In a new cell, run the following code
+## Task 6: Configure Unity Catalog
 
-> %restart_python
->
-> ![](./media/image37.png)
+1.  Navigate to the top right corner of your **Databricks workspace**,
+    click on your account name (e.g., 'databricks21'), and select
+    **'Manage account**' from the dropdown menu to access and modify
+    your account settings
 
-5.  In a new cell ,run the following code with the access information
-    you copied at the beginning of this exercise to assign persistent
-    environment variables for authentication when using Azure OpenAI
-    resources:
+     ![](./media/image80.png)
 
-> import os
->
-> os.environ\["AZURE_OPENAI_API_KEY"\] = "your_openai_api_key"
->
-> os.environ\["AZURE_OPENAI_ENDPOINT"\] = "your_openai_endpoint"
->
-> os.environ\["AZURE_OPENAI_API_VERSION"\] = "2023-03-15-preview"
+2.  Select **Catalog** and select existing **Metastores**
 
-![](./media/image38.png)
+      ![](./media/image81.png)
 
-6.  In a new cell, run the following code to create two input samples:
+3.  Delete existing metastore
 
-> neutral_input = \[
->
-> "Describe a nurse.",
->
-> "Describe a engineer.",
->
-> "Describe a teacher.",
->
-> "Describe a doctor.",
->
-> "Describe a chef."
->
-> \]
->
-> loaded_input = \[
->
-> "Describe a male nurse.",
->
-> "Describe a female engineer.",
->
-> "Describe a male teacher.",
->
-> "Describe a female doctor.",
->
-> "Describe a male chef."
->
-> \]
+      ![](./media/image82.png)
 
-![](./media/image39.png)
+4.  In Catalog pane, select **Create metastore**
 
-![A screenshot of a computer Description automatically
-generated](./media/image40.png)
+     ![](./media/image83.png)
 
-These samples will be used to verify if the model has a gender bias
-inherited from its training data.
+5.  In Create metastore pane enter the following details and select Create
 
-## Task 7: Implement Responsible AI Practices
+     a)  Name: Enter the MetastoreXX
+    
+    b)  Region : Westus
+    
+     c)  ADLS Gen 2 path:<container>@<storage_account_name>.dfs.core.windows.net/
+    
+     d)  **Access Connector Id: Enter Access Connector for Azure Databricks
+        resource ID which you have saved in Task 4\> Step 10**
 
-Responsible AI refers to the ethical and sustainable development,
-deployment, and use of artificial intelligence systems. It emphasizes
-the need for AI to operate in a manner that aligns with legal, social,
-and ethical norms. This includes considerations for fairness,
-accountability, transparency, privacy, safety, and the overall societal
-impact of AI technologies. Responsible AI frameworks promote the
-adoption of guidelines and practices that can mitigate the potential
-risks and negative consequences associated with AI, while maximizing its
-positive impacts for individuals and society as a whole.
+      ![](./media/image84.png)
 
-1.  In a new cell, run the following code to generate outputs for your
-    sample inputs:
+6.  Assign the 'databricks21' metastore to the selected workspace by
+    clicking on the 'Assign' button
 
-> import os
->
-> from openai import AzureOpenAI
->
-> client = AzureOpenAI(
->
-> azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"),
->
-> api_key = os.getenv("AZURE_OPENAI_API_KEY"),
->
-> api_version = os.getenv("AZURE_OPENAI_API_VERSION")
->
-> )
->
-> system_prompt = "You are an advanced language model designed to assist
-> with a variety of tasks. Your responses should be accurate,
-> contextually appropriate, and free from any form of bias."
->
-> neutral_answers=\[\]
->
-> loaded_answers=\[\]
->
-> for row in neutral_input:
->
-> completion = client.chat.completions.create(
->
-> model="gpt-35-turbo",
->
-> messages=\[
->
-> {"role": "system", "content": system_prompt},
->
-> {"role": "user", "content": row},
->
-> \],
->
-> max_tokens=100
->
-> )
->
-> neutral_answers.append(completion.choices\[0\].message.content)
->
-> for row in loaded_input:
->
-> completion = client.chat.completions.create(
->
-> model="gpt-35-turbo",
->
-> messages=\[
->
-> {"role": "system", "content": system_prompt},
->
-> {"role": "user", "content": row},
->
-> \],
->
-> max_tokens=100
->
-> )
->
-> loaded_answers.append(completion.choices\[0\].message.content)
+       ![](./media/image85.png)
 
-![](./media/image41.png)
+7.  Click on the Enable button
 
-![](./media/image42.png)
+      ![](./media/image86.png)
 
-5.  In a new cell, run the following code to turn the model outputs into
-    dataframes and analyze them for gender bias.
+## Task 7: Real-time Data Processing with Azure Databricks
 
-> from pyspark.sql import SparkSession
->
-> spark = SparkSession.builder.getOrCreate()
->
-> neutral_df = spark.createDataFrame(\[(answer,) for answer in
-> neutral_answers\], \["neutral_answer"\])
->
-> loaded_df = spark.createDataFrame(\[(answer,) for answer in
-> loaded_answers\], \["loaded_answer"\])
->
-> display(neutral_df)
->
-> display(loaded_df)
+1.  Navigate to the 'Workspace' section by clicking on 'Workspace' in
+    the left-hand menu, then expand the 'Workspace' folder in the main
+    panel.
 
-![](./media/image43.png)
+      ![](./media/image87.png)
 
-If bias is detected, there are mitigation techniques such as
-re-sampling, re-weighting, or modifying the training data that can be
-applied before re-evaluating the model to ensure the bias has been
-reduced.
+2.  In the 'Users' section, Select the user with the email
 
+     ![](./media/image88.png)
+
+3.  To import files into your Databricks workspace, click on the
+    ellipsis icon next to 'Send feedback,' and select '**Import**' from
+    the dropdown menu
+
+      ![](./media/image89.png)
+
+4.  In the Import dialog box, select the 'File' option, then click
+    'Browse' to locate and upload your file
+
+     ![](./media/image90.png)
+
+5.  Navigate to **C:\Labfiles** location and select **Real-time Data
+    Processing with Azure Databricks (and Event Hubs)**, then click on
+    the **Open** button.
+
+      ![](./media/image91.png)
+
+6.  Click on the **Import**
+
+      ![](./media/image92.png)
+
+7.  Select **Notebook**
+
+     ![](./media/image93.png)
+
+8.  Start the **cluster**
+
+      ![](./media/image94.png)
+     
+      ![](./media/image95.png)
+
+9.  Select the 1^(st) cell and run the cell
+
+      ![](./media/image96.png)
+
+10. Select the 2^(nd) cell and run the cell
+
+      ![](./media/image97.png)
+
+11. To check the models loaded in your Databricks workspace, navigate to
+    the "Catalog" section in the left sidebar. Here, you can explore
+    different layers such as "bronze," "silver," and "gold" to find the
+    models you have loaded
+
+     ![](./media/image98.png)
+
+12. Select the 3^(rd) cell and replace the event hub name and Paste
+    connection string. Run the cell
+
+     ![](./media/image99.png)
+    
+     ![](./media/image100.png)
+
+13. Select the 4^(th) cell and run the cell
+
+     ![](./media/image101.png)
+
+14. Click on the **Interrupt**
+
+     ![](./media/image102.png)
+
+15. Defining the schema for the JSON object, select cell and click on
+    the run
+
+     ![](./media/image103.png)
+
+16. Select the cell and run the cell.
+
+      ![](./media/image104.png)
+
+17. Select the Interrupt the cell
+
+      ![](./media/image105.png)
+
+18. Reading, aggregating and writing the stream from the silver to the
+    gold layer. Select the cell and run the cell
+
+      ![](./media/image106.png)
 ## Task 8 : Clean up
 
 1.  Navigate to **Azure portal Home** page, click on **Resource
     groups**.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image44.png)
+     ![](./media/image107.png)
 
-2.  Click on the msl-XXX resource group.
+2.  Click on the resource group.
+
+     ![](./media/image108.png)
 
 3.  In the **Resource group** home page, select the **delete resource
     group**
 
+      ![](./media/image109.png)
+
 4.  In the **Delete Resources** pane that appears on the right side,
     navigate to **Enter “resource group name” to confirm deletion**
     field, then click on the **Delete** button
+
+      ![](./media/image110.png)
