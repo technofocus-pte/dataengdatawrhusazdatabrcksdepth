@@ -18,9 +18,7 @@ in this exercise were written.
 1.  In Azure portal, click on **portal menu** represented by three
     horizontal bars on the top left corner of page, as shown in the
     below image.
-
-     ![](./media/image1.png)
-
+  
 2.  Navigate and click on **+ Create a resource**.
 
       ![](./media/image2.png)
