@@ -235,15 +235,14 @@ capabilities.
      
       ![](./media/image36.png)
 
-5.  Once created, click on **Go to resource**.
+6.  Once created, click on **Go to resource**.
 
       ![](./media/image37.png)
 
-6.  In the **Overview** page for your workspace, use the **Launch
+7.  In the **Overview** page for your workspace, use the **Launch
     Workspace** button to open your Azure Databricks workspace in a new
     browser tab; signing in if prompted.
-
-      ![](./media/image387.png)
+      ![](./media/image38.png)
 
 ## Task 3: Creating a ADLS Gen2Storage Account and Container. 
 
@@ -340,59 +339,59 @@ storage account through an *access connector*.
 
       ![](./media/image51.png)
 
-8.  In the **Review + submit** tab, once the Validation is Passed, click
+4.  In the **Review + submit** tab, once the Validation is Passed, click
     on the **Create** button.
 
       ![](./media/image52.png)
 
-9.  Click on the **Go to resource**
+5.  Click on the **Go to resource**
 
      ![](./media/image53.png)
      ![](./media/image54.png)
 
-10.  Select **ConnecterXX**
+6.  Select **ConnecterXX**
 
       ![](./media/image55.png)
 
-11. Copy and Save the Resource Id in notepad
+7. Copy and Save the Resource Id in notepad
 
      ![](./media/image56.png)
 
-11. Select the **Storage account**
+8. Select the **Storage account**
 
       ![](./media/image57.png)
 
-12. From the left menu, click on the **Access control(IAM).**
+9. From the left menu, click on the **Access control(IAM).**
 
-13. On the Access control(IAM) page, Click +**Add** and select **Add
+10. On the Access control(IAM) page, Click +**Add** and select **Add
     role assignments.**
 
      ![](./media/image58.png)
 
-14. Type the **Storage blob data contributor** in the search box and
+11. Type the **Storage blob data contributor** in the search box and
     select it. Click **Next**
 
       ![](./media/image59.png)
 
-15. In the **Add role assignment** tab, select **Managed identity** .
+12. In the **Add role assignment** tab, select **Managed identity** .
     Under Members, click **+Select members**
 
        ![](./media/image60.png)
 
-16. Select the connector-xxxxxxx access connector for Azure Databricks
+13. Select the connector-xxxxxxx access connector for Azure Databricks
     you created previously (you can ignore any other access connectors
     that have been created in your subscription)
 
       ![](./media/image61.png)
 
-17. In the **Add role assignment** page, Click **Review + Assign**, you
+14. In the **Add role assignment** page, Click **Review + Assign**, you
     will get a notification once the role assignment is complete.
 
       ![](./media/image62.png)
 
      ![](./media/image63.png)
 
-18. Select **Home**
+15. Select **Home**
 
      ![](./media/image64.png)
 
@@ -476,7 +475,7 @@ complete this exercise and skip this procedure.
     latest version
      ![](./media/image74.png)
 
-9.  Click on **Install**
+10.  Click on **Install**
 
       ![](./media/image75.png)
 
@@ -484,12 +483,12 @@ complete this exercise and skip this procedure.
 
       ![](./media/image77.png)
 
-9.  In the dropdown menu, select 'Settings' to access various
+11.  In the dropdown menu, select 'Settings' to access various
     configuration options.
 
      ![](./media/image78.png)
 
-10. In the Databricks workspace settings, navigate to the 'Advanced'
+12. In the Databricks workspace settings, navigate to the 'Advanced'
     section to configure options, DBFS File Browser is On.
 
       ![](./media/image79.png)
