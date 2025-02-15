@@ -193,11 +193,11 @@ portal
 
 4.  At the Power Shell prompt, run the below command to clone the
     project
-
+      ```
         rm -r mslearn-databricks -f
 
         git clone https://github.com/MicrosoftLearning/mslearn-databricks
-
+      ```
       ![](./media/image16.png)
 
 8.  After the repo has been cloned, enter the following command to run
@@ -359,7 +359,7 @@ transformation in real time.
 1.  In a new cell, run the following code to create a stream based on
     the folder containing the csv device data:
 
-        ```
+     ```
         from pyspark.sql.functions import *
          from pyspark.sql.types import *
         
@@ -382,7 +382,7 @@ transformation in real time.
                   .format("delta")
                   .option("checkpointLocation", "/tmp/checkpoints/iot_data")
                   .start("/tmp/delta/iot_data"))
-        ```
+     ```
 
      ![](./media/image31.png)
     
