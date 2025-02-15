@@ -30,51 +30,46 @@ Catalog in an Azure Databricks workspace.
 **Tip**: If you already have a premium tier Azure Databricks workspace,
 you can skip this procedure and use your existing workspace.
 
-1.  Login to +++<https://portal.azure.com+++> using the Azure login
-    credentials. Search for +++**azure databricks**+++ from the search
+1.  Login to +++https://portal.azure.com+++ using the Azure login
+    credentials. Search for +++azure databricks+++ from the search
     bar and select it.
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image1.png)
+     ![](./media/image1.png)
 
 2.  Create an **Azure Databricks** resource with the following settings:
 
-    1)  **Subscription**: *Select your Azure subscription*
+    a)  **Subscription**: **Select your Azure subscription**
 
-    2)  **Resource group**: *Create a new resource group
-        named +++**msl-XX+++** (where "xxxxxxx" is a unique value)*
+    b)  **Resource group**: Create a new resource group
+        named **+++msl-XX+++** (where "xxxxxxx" is a unique value)*
 
-    3)  **Workspace name**: databricks-xxxxxxx *(where "xxxxxxx" is the
-        value used in the resource group name)*
+    c)  **Workspace name**: +++databricks-xxx+++ (where "xxx" is the value used in the resource group name)
 
-    4)  **Region**: *Select any available region*
+    d)  **Region**: Select any East US2 region
 
-    5)  **Pricing tier**: *Premium* or *Trial*
+    e)  **Pricing tier**: **Premium** 
 
-    6)  **Managed Resource Group
-        name**: databricks-xxxxxxx-managed *(where "xxxxxxx" is the
-        value used in the resource group name)*
+    f)  **Managed Resource Group name**: databricks-xxxxxxx-managed (where "xxxxxxx" is the
+        value used in the resource group name)
 
-> ![](./media/image2.png)
->
-> ![](./media/image3.png)
+      ![](./media/image2.png)
+     
+      ![](./media/image3.png)
 
 3.  On the **Review + Create** tab, once the message in the ribbon
     returns "**Validation passed**", verify your selections and
     click **Create**.
 
-> ![](./media/image4.png)
->
-> ![A screenshot of a computer Description automatically
-> generated](./media/image5.png)
+      ![](./media/image4.png)
+     
+      ![](./media/image5.png)
 
 4.  Wait several minutes while your deployment is in progress. Once
     complete, click **Go to resource**.
 
-> ![](./media/image6.png)
->
-> ![A screenshot of a computer Description automatically
-> generated](./media/image7.png)
+     ![](./media/image6.png)
+ 
+     ![](./media/image7.png)
 
 ## Task 2: Prepare storage for the catalog
 
@@ -86,47 +81,47 @@ Azure Data Lake Storage Gen2 hierarchical namespace for this purpose.
 1.  In Azure portal home page, search for +++**Storage account**+++ from
     the search bar and select it.
 
-> ![](./media/image8.png)
+     ![](./media/image8.png)
 
 2.  Select the **+Create**
 
-> ![](./media/image9.png)
+      ![](./media/image9.png)
 
-1)  In the Azure portal, create a new **Storage account** resource with
+3)  In the Azure portal, create a new **Storage account** resource with
     the following settings:
 
-2)  **Subscription**: *Select your Azure subscription*
+    a)  **Subscription**: *Select your Azure subscription*
+    
+    b)  **Resource group**: *Select the existing ***msl-xxxxxxx***  resource
+        group where you created the Azure Databricks workspace.*
+    
+    c)  **Storage account name**: storeXXXX *(where "xx" is the value used
+        in the resource group name)*
+    
+    d)  **Region**: *Select the region where you created the Azure
+        Databricks workspace*
+    
+    e)  **Primary service**: Azure Blob Storage or Azure Data Lake Storage
+        Gen2
+    
+    f)  **Performance**: Standard
+    
+    g)  **Redundancy**: Locally-redundant storage (LRS) *(For a
+        non-production solution like this exercise, this option has lower
+        cost and capacity consumption benefits)*
 
-3)  **Resource group**: *Select the existing ***msl-xxxxxxx***  resource
-    group where you created the Azure Databricks workspace.*
-
-4)  **Storage account name**: storeXXXX *(where "xx" is the value used
-    in the resource group name)*
-
-5)  **Region**: *Select the region where you created the Azure
-    Databricks workspace*
-
-6)  **Primary service**: Azure Blob Storage or Azure Data Lake Storage
-    Gen2
-
-7)  **Performance**: Standard
-
-8)  **Redundancy**: Locally-redundant storage (LRS) *(For a
-    non-production solution like this exercise, this option has lower
-    cost and capacity consumption benefits)*
-
-> ![](./media/image10.png)
->
-> ![](./media/image11.png)
+      ![](./media/image10.png)
+     
+      ![](./media/image11.png)
 
 3.  Select **Review + create** and wait for deployment to complete.
 
-> ![](./media/image12.png)
+      ![](./media/image12.png)
 
 4.  When deployment has completed, go to the
     deployed ***storexxxxxxx*** storage account resource
 
-> ![](./media/image13.png)
+     ![](./media/image13.png)
 
 5.  When deployment has completed, go to the
     deployed **storageazuredatabricksxx** storage account resource and
@@ -134,12 +129,11 @@ Azure Data Lake Storage Gen2 hierarchical namespace for this purpose.
     named +++**data+++**. This is where the data for your Unity Catalog
     objects will be stored.
 
-> ![](./media/image14.png)
-
-![](./media/image15.png)
-
-> ![A screenshot of a computer Description automatically
-> generated](./media/image16.png)
+     ![](./media/image14.png)
+    
+    ![](./media/image15.png)
+    
+    ![](./media/image16.png)
 
 ## Task 3: Configure access to catalog storage
 
@@ -150,87 +144,87 @@ storage account through an *access connector*.
 1.  On the Azure portal search bar, search for **Access Connector for
     Azure Databricks** and select it
 
-> ![](./media/image17.png)
+    ![](./media/image17.png)
 
 2.  Click the **+ Create** button.
 
-> ![](./media/image18.png)
+     ![](./media/image18.png)
 
 3.  In the Azure portal, create a new **Access connector for Azure
     Databricks** resource with the following settings:
 
-    1)  **Subscription**: *Select your Azure subscription*
+    a)  **Subscription**: *Select your Azure subscription*
 
-    2)  **Resource group**: *Select the
+    b)  **Resource group**: *Select the
         existing **msl-xxxxxxx** resource group where you created the
         Azure Databricks workspace.*
 
-    3)  **Name**: connector-xxxxxxx *(where "xxxxxxx" is the value used
+    c)  **Name**: connector-xxxxxxx *(where "xxxxxxx" is the value used
         in the resource group name)*
 
-    4)  **Region**: *Select the region where you created the Azure
+    d)  **Region**: *Select the region where you created the Azure
         Databricks workspace*
 
-> ![](./media/image19.png)
+      ![](./media/image19.png)
 
 4.  In the **Review + submit** tab, once the Validation is Passed, click
     on the **Create** button.
 
-> ![](./media/image20.png)
+      ![](./media/image20.png)
 
 4.  Click on the **Go to resource**
 
-> ![](./media/image21.png)
+     ![](./media/image21.png)
 
 5.  Copy and Save the Resource Id in notepad
 
-> ![](./media/image22.png)
+      ![](./media/image22.png)
 
 4.  Click on the **Home** button
 
-> ![](./media/image23.png)
+      ![](./media/image23.png)
 
 5.  Select the Storage account
 
-> ![](./media/image24.png)
+     ![](./media/image24.png)
 
 6.  From the left menu, click on the **Access control(IAM).**
 
 7.  On the Access control(IAM) page, Click +**Add** and select **Add
     role assignments.**
 
-> ![](./media/image25.png)
+     ![](./media/image25.png)
 
-1.  In the **Job function roles** list, search for and select
+8.  In the **Job function roles** list, search for and select
     the **Storage blob data contributor** role.
 
-> ![](./media/image26.png)
+      ![](./media/image26.png)
 
-4.  In the **Add role assignment** tab, select **Managed identity** .
+9.  In the **Add role assignment** tab, select **Managed identity** .
     Under Members, click **+Select members**
 
-> ![](./media/image27.png)
+     ![](./media/image27.png)
 
-2.  Select **Next**. Then on the **Members** page, select the option to
+10.  Select **Next**. Then on the **Members** page, select the option to
     assign access to a **Managed Identity** and then find and select
     the connector-xxxxxxx access connector for Azure Databricks you
     created previously (you can ignore any other access connectors that
     have been created in your subscription)
 
-> ![](./media/image28.png)
->
-> ![](./media/image29.png)
+      ![](./media/image28.png)
+     
+      ![](./media/image29.png)
 
-5.  In the **Add role assignment** page, Click **Review + Assign**, you
+11.  In the **Add role assignment** page, Click **Review + Assign**, you
     will get a notification once the role assignment is complete.
 
-> ![](./media/image30.png)
->
-> ![](./media/image31.png)
+      ![](./media/image30.png)
+     
+      ![](./media/image31.png)
 
-3.  Select **Home** button
+12.  Select **Home** button
 
-> ![](./media/image32.png)
+      ![](./media/image32.png)
 
 ## Task 4: Configure Unity Catalog
 
@@ -242,72 +236,69 @@ account.
 1.  In the Azure portal home page select your Azure Databricks
     service(databricksXX)
 
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image33.png)
+     ![](./media/image33.png)
 
 2.  In the Azure portal, view the **msl-*xxxxxxx*** resource group,
     which should now contain three resources:
 
-    1)  The **databricks-*xxxxxxx*** Azure Databricks workspace
+    a)  The **databricks-*xxxxxxx*** Azure Databricks workspace
 
-    2)  The **store*xxxxxxx*** storage account
+    b)  The **store*xxxxxxx*** storage account
 
-    3)  The **connector-*xxxxxxx*** access connector for Azure
+    c)  The **connector-*xxxxxxx*** access connector for Azure
         Databricks
 
-> ![](./media/image34.png)
+      ![](./media/image34.png)
 
 3.  Open the **databricks-xxxxxxx** Azure Databricks workspace resource
     you created and earlier, and on its **Overview** page, use
     the **Launch Workspace** button to open your Azure Databricks
     workspace in a new browser tab; signing in if prompted.
 
-> ![](./media/image35.png)
+      ![](./media/image35.png)
 
 4.  In the **databricks-*xxxxxxx*** menu at the top right,
     select **Manage account** to open the Azure Databricks account
     console in another tab.
 
-> ![A screenshot of a computer Description automatically
-> generated](./media/image36.png)
->
-> ![](./media/image37.png)
+     ![](./media/image36.png)
+      ![](./media/image37.png)
 
-**Note**: If ***Manage account*** is not listed or doesn't successfully
-open, you may need to have a global administrator add your account to
-the ***Account Admin*** role in your Azure Databricks workspace.
+    **Note**: If **Manage account** is not listed or doesn't successfully
+    open, you may need to have a global administrator add your account to
+    the **Account Admin** role in your Azure Databricks workspace.
 
 5.  Delete the existing **metastore**
 
-![](./media/image38.png)
-
-![](./media/image39.png)
+     ![](./media/image38.png)
+    
+     ![](./media/image39.png)
 
 6.  In the Azure Databricks account console, on the **catalog** page,
     select **Create metastore**.
 
 7.  Create a new metastore with the following settings:
 
-    1)  **Name**: metastore-xxxxxxx *(where xxxxxxx is the unique value
+    a)  **Name**: metastore-xxxxxxx *(where xxxxxxx is the unique value
         you've been using for resources in this exercise)*
 
-    2)  **Region**: *Select the region where you created your Azure
+    b)  **Region**: *Select the region where you created your Azure
         resources*
 
-    3)  **ADLS Gen 2
+    c)  **ADLS Gen 2
         path**: **data@storexxxxxxx.dfs.core.windows.net/** *(where
         storexxxxxx is the your storage account name)*
 
-    4)  **Access Connector Id**: *The **resource ID for your access
+    d)  **Access Connector Id**: *The **resource ID for your access
         connector** (copied from its Overview page in the Azure portal)*
 
-> ![](./media/image40.png)
+      ![](./media/image40.png)
 
 8.  After creating the metastore, select
     the **databricks-*xxxxxxx*** workspace and assign the metastore to
     it.
 
-> ![](./media/image41.png)
+      ![](./media/image41.png)
 
 ## Task 5: Work with data in Unity Catalog
 
@@ -323,36 +314,34 @@ you can use it to work with data in Azure Databricks.
     named **default** and **Information_schema** have already been
     created in your catalog.
 
-> ![](./media/image42.png)
+      ![](./media/image42.png)
 
-3.  Sin the **Catalog Explore** pane, select **Create
-    schema**![](./media/image43.png)
+3.  Sin the **Catalog Explore** pane, select **Create schema**
+    ![](./media/image43.png)
 
 4.  In the Create a new schema tab, enter the schema
-    name +++**sales+++** and click on the **Create** button
+    name +++sales+++ and click on the **Create** button
 
-> ![](./media/image44.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image45.png)
+     ![](./media/image44.png)
+ 
+      ![](./media/image45.png)
 
 5.  In the Catalog explorer in Azure Databricks workspace, with
     the **sales** schema selected, select **Create** \> **Create
     table**.
 
-> ![](./media/image46.png)
+     ![](./media/image46.png)
 
 6.  Click on **Browse for file**, navigate to **C:\Labfiles** location
     and select **products.csv**, then click on the **Open** button.
 
-> ![](./media/image47.png)
+     ![](./media/image47.png)
 
 7.  Select the Create table
 
-> ![](./media/image48.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image49.png)
+     ![](./media/image48.png)
+ 
+     ![](./media/image49.png)
 
 **Note**: You may need to wait a few minutes for serverless compute to
 start.
@@ -364,8 +353,7 @@ start.
     table (you can access it because you have full administrative
     rights, but no other users can query the table).
 
-![A screenshot of a computer AI-generated content may be
-incorrect.](./media/image50.png)
+      ![](./media/image50.png)
 
 2.  Select **Grant**, and configure access to the table as follows:
 
@@ -373,68 +361,62 @@ incorrect.](./media/image50.png)
 
     - **Privileges**: SELECT
 
-    - **Additional privileges required for access**: Also grant USE
-      SCHEMA on main.sales
+    - **Additional privileges required for access**: Also grant USE SCHEMA on main.sales
 
-> ![](./media/image51.png)
+       ![](./media/image51.png)
 
 ## Task 7: Track lineage
 
 1.  On the **+ New** menu, select **Query** and create a new query with
     the following SQL
 
-> ![](./media/image52.png)
->
-> Copy:
->
-> SELECT Category, COUNT(\*) AS Number_of_Products
->
-> FROM main.sales.products
->
-> GROUP BY Category;
+      ![](./media/image52.png)
+        ```
+        SELECT Category, COUNT(*) AS Number_of_Products
+        FROM main.sales.products
+        GROUP BY Category;
+        ```
 
 2.  Ensure serverless compute is connected, and run the query to see the
     results.
 
-> ![](./media/image53.png)
->
-> ![](./media/image54.png)
+      ![](./media/image53.png)
+     
+      ![](./media/image54.png)
 
 3.  **Save** the query as Products by Category in the workspace folder
     for your Azure Databricks user account.
 
-> ![](./media/image55.png)
->
-> ![](./media/image56.png)
+      ![](./media/image55.png)
+     
+      ![](./media/image56.png)
 
 4.  Return to the **Catalog** page. Then expand the **main** catalog and
     the **sales** schema, and select the **products** table.
 
-> ![](./media/image57.png)
->
-> ![A screenshot of a computer AI-generated content may be
-> incorrect.](./media/image58.png)
+      ![](./media/image57.png)
+     
+      ![](./media/image58.png)
 
 5.  On the **Lineage** tab, select **Queries** to verify that the
     lineage from the query you created to the source table has been
     tracked by Unity Catalog.
 
-> ![Screenshot of the table linage view in an Azure Databricks
-> workspace.](./media/image59.png)
+      ![](./media/image59.png)
 
 **Task 8: Clean up**
 
 1.  Navigate to **Azure portal Home** page, click on **Resource
     groups**.
 
-> ![](./media/image60.png)
+     ![](./media/image60.png)
 
 2.  Click on the resource group.
 
 3.  In the **Resource group** home page, select the **delete resource
     group**
 
-> ![](./media/image61.png)
+      ![](./media/image61.png)
 
 4.  In the **Delete Resources** pane that appears on the right side,
     navigate to **Enter “resource group name” to confirm deletion**
