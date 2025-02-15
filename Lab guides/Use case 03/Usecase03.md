@@ -161,7 +161,7 @@ capabilities.
 23. Copy the following code and paste it into the 'Enter Payload' field,
     then click on the '**Send**' button
 
-        ```
+     ```
         {
             "temperature": 50,
             "humidity": 60,
@@ -170,7 +170,7 @@ capabilities.
             "precipitation": 0,
             "conditions": "Rain"
         }
-        ```
+      ```
       ![](./media/image25.png)
 
 24. Now , click on the View events
