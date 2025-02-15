@@ -87,7 +87,7 @@ Azure Data Lake Storage Gen2 hierarchical namespace for this purpose.
 
       ![](./media/image9.png)
 
-3)  In the Azure portal, create a new **Storage account** resource with
+3.  In the Azure portal, create a new **Storage account** resource with
     the following settings:
 
     a)  **Subscription**: *Select your Azure subscription*
@@ -114,16 +114,16 @@ Azure Data Lake Storage Gen2 hierarchical namespace for this purpose.
      
       ![](./media/image11.png)
 
-3.  Select **Review + create** and wait for deployment to complete.
+4.  Select **Review + create** and wait for deployment to complete.
 
       ![](./media/image12.png)
 
-4.  When deployment has completed, go to the
+5.  When deployment has completed, go to the
     deployed ***storexxxxxxx*** storage account resource
 
      ![](./media/image13.png)
 
-5.  When deployment has completed, go to the
+6.  When deployment has completed, go to the
     deployed **storageazuredatabricksxx** storage account resource and
     use its **Storage browser** page to add a new blob container
     named +++**data+++**. This is where the data for your Unity Catalog
