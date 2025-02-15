@@ -45,7 +45,7 @@ you can skip this procedure and use your existing workspace.
 
     c)  **Workspace name**: +++databricks-xxx+++ (where "xxx" is the value used in the resource group name)
 
-    d)  **Region**: Select any East US2 region
+    d)  **Region**: Select any **East US2** region
 
     e)  **Pricing tier**: **Premium** 
 
