@@ -520,7 +520,7 @@ complete this exercise and skip this procedure.
     
     b)  Region : Westus
     
-     c)  ADLS Gen 2 path:<container>@<storage_account_name>.dfs.core.windows.net/
+     c)  ADLS Gen 2 : path:<container>@<storage_account_name>.dfs.core.windows.net/
     
      d)  **Access Connector Id: Enter Access Connector for Azure Databricks
         resource ID which you have saved in Task 4\> Step 10**
