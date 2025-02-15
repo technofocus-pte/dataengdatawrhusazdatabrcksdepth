@@ -30,7 +30,7 @@ Catalog in an Azure Databricks workspace.
 **Tip**: If you already have a premium tier Azure Databricks workspace,
 you can skip this procedure and use your existing workspace.
 
-1.  Login to +++https://portal.azure.com+++ using the Azure login
+1.  Login to +++https://portal.azure.com+++  using the Azure login
     credentials. Search for +++azure databricks+++ from the search
     bar and select it.
 
