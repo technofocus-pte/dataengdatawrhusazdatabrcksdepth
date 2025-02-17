@@ -45,6 +45,8 @@ These personas will participate in the following sequential scenarios:
 
 ![](./media/image2.png)
 
+**Important Note:** Copy all the scripts into Notepad and ensure they are used properly.
+
 # Exercise 1: Provision an Azure Databricks workspace
 
 **(Led by Remy Morris, Data Architect)**
@@ -195,7 +197,6 @@ portal
     project
       ```
         rm -r mslearn-databricks -f
-
         git clone https://github.com/MicrosoftLearning/mslearn-databricks
       ```
       ![](./media/image16.png)
