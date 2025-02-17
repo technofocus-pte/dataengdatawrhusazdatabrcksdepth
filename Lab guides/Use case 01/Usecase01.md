@@ -226,7 +226,7 @@ environment needed to handle real-time data streams. He creates a
 cluster that will power the data processing.
 
 Azure Databricks is a distributed processing platform that uses Apache
-Spark *clusters* to process data in parallel on multiple nodes. Each
+Spark **clusters** to process data in parallel on multiple nodes. Each
 cluster consists of a driver node to coordinate the work, and worker
 nodes to perform processing tasks. In this exercise, you’ll create
 a *single-node* cluster to minimize the compute resources used in the
@@ -329,6 +329,7 @@ temperature and humidity from various machines.
      rm -r /dbfs/device_stream
      mkdir /dbfs/device_stream
      wget -O /dbfs/device_stream/device_data.csv https://github.com/MicrosoftLearning/mslearn-databricks/raw/main/data/device_data.csv
+    
     ```
 
      ![](./media/image29.png)
@@ -360,7 +361,7 @@ transformation in real time.
 1.  In a new cell, run the following code to create a stream based on
     the folder containing the csv device data:
 
-     ```
+        ```
         from pyspark.sql.functions import *
          from pyspark.sql.types import *
         
@@ -383,7 +384,8 @@ transformation in real time.
                   .format("delta")
                   .option("checkpointLocation", "/tmp/checkpoints/iot_data")
                   .start("/tmp/delta/iot_data"))
-     ```
+     
+        ```
 
      ![](./media/image31.png)
     
@@ -522,6 +524,7 @@ operations team monitor equipment health in real time.
     ```
     df= spark.read.format("delta").load('/pipelines/device_stream/tables/transformed_iot_data')
     display(df)
+    
     ```
 
       ![](./media/image47.png)
