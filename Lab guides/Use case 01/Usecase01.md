@@ -361,7 +361,7 @@ transformation in real time.
 1.  In a new cell, run the following code to create a stream based on
     the folder containing the csv device data:
 
-        ```
+        
         from pyspark.sql.functions import *
          from pyspark.sql.types import *
         
@@ -385,7 +385,7 @@ transformation in real time.
                   .option("checkpointLocation", "/tmp/checkpoints/iot_data")
                   .start("/tmp/delta/iot_data"))
 
-        ```
+      
 
      ![](./media/image31.png)
     
