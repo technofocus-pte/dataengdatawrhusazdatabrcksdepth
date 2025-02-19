@@ -172,7 +172,7 @@ portal
 
 6.  Select the **Cloud Shell** icon in the Azure portal toolbar to open
     a new Cloud Shell pane at the bottom of your browser window.
-    Select **Bash**.
+    Select **Powershell**.
 
      ![](./media/image13.png)
     
