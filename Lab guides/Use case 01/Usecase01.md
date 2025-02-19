@@ -384,7 +384,7 @@ transformation in real time.
                   .format("delta")
                   .option("checkpointLocation", "/tmp/checkpoints/iot_data")
                   .start("/tmp/delta/iot_data"))
-     
+
         ```
 
      ![](./media/image31.png)
