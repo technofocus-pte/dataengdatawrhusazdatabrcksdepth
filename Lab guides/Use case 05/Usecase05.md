@@ -6,13 +6,13 @@ For more information about Microsoft Purview
 
 ## Task 0: Install self-hosted integration runtime
 
-1.  Navigate to **C:\Labfiles** location and select
+1.  Navigate to **+++https://www.microsoft.com/en-us/download/details.aspx?id=105539)+++** location and select
     **IntegrationRuntime_5.48.9089.1** file and install
 
-2.  Navigate to **C:\Labfiles** location and select **VC_redist.x64**
+2.  Navigate to **+++https://www.oracle.com/java/technologies/downloads/#license-lightbox+++** location and select **VC_redist.x64**
     file and install
 
-3.  Navigate to **C:\Labfiles** location and select
+3.  Navigate to **+++https://aka.ms/vs/17/release/vc_redist.x64.exe+++** location and select
     jdk-11.0.26_windows-x64_bin file and install
 
 ## **Task 1: Create an Azure Purview Account**
