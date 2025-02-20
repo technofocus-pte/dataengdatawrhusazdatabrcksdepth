@@ -332,11 +332,9 @@ you can use it to work with data in Azure Databricks.
 
      ![](./media/image46.png)
 
-6.  Click on **Browse for file**, navigate to **C:\Labfiles** location
-    and select **products.csv**, then click on the **Open** button.
+6. Open the browser and navigate to +++https://github.com/venki-hari21/Databricks/tree/main/Labfiles+++ location, then select products.csv, then download the file and and upload it
 
-     ![](./media/image47.png)
-
+     
 7.  Select the Create table
 
      ![](./media/image48.png)
