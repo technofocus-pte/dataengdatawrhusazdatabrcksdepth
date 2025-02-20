@@ -559,12 +559,8 @@ complete this exercise and skip this procedure.
 
      ![](./media/image90.png)
 
-5.  Navigate to **C:\Labfiles** location and select **Real-time Data
-    Processing with Azure Databricks (and Event Hubs)**, then click on
-    the **Open** button.
-
-      ![](./media/image91.png)
-
+5.  Navigate to **+++https://github.com/venki-hari21/Databricks/tree/main/Labfiles+++** location and select Real-time Data Processing with Azure Databricks (and Event Hubs), then download the file
+      
 6.  Click on the **Import**
 
       ![](./media/image92.png)
