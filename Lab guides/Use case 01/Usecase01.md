@@ -96,55 +96,9 @@ portal
 
       ![](./media/image7.png)
 
-## Task 0: Redeem Azure Pass
 
-1.  Open a new tab on your browser and browse to the **Microsoft Azure
-    Pass** website using the given
-    link +++https://www.microsoftazurepass.com/+++.
 
-2.  Click on **Start**.
-
-      ![](./media/a1.png)
-
-3.  Enter the **Office 365 tenant credentials** from the Lab
-    VM(**Resources** tab) and **Sign In**.
-
-     ![](./media/a2.png)
-     ![](./media/a3.png)
-
-4.  Verify email id and then click on **Confirm Microsoft Account**.
-
-     ![](./media/a4.png)
-
-5.  Paste the **promo code** from the Resources tab in the **Enter Promo
-    code** box and click **Claim Promo Code**.
-
-     ![](./media/a5.png)
-     ![](./media/a6.png)
-
-6.  It may take few seconds to process the redemption.
-
-7.  Fill in the details appropriately on the **Sign up** page.
-
-8.  On the **Agreement** window, select the check box - I agree to the
-    subscription agreement, offer details, and privacy statement, and
-    then click on **Sign up**.
-
-     ![](./media/a7.png)
-
-9.  You may **Submit** the feedback while the account setup is in
-    progress.
-
-     ![](./media/a8.png)
-     ![](./media/a9.png)
-
-10. The account setup will take about 2-3 minutes to complete. It would
-    automatically redirect you to the **Azure Portal** and now you are
-    ready to use Azure services.
-
-      ![](./media/a10.png)
-
-## Task 2: Create an Azure Databricks workspace
+## Task 1: Create an Azure Databricks workspace
 
 1.  Open your browser, navigate to the address bar, type or paste the
     following URL: +++https://portal.azure.com/+++, then press the
