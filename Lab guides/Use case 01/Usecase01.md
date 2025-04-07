@@ -149,8 +149,7 @@ portal
     - **Resource group**: *The same resource group where you created
       your Azure Event Hubs*
 
-    - **Region**: *The same region where you created Azure Event Hubs
-      resource*
+    - **Region**: *Select the region East US 2*
 
     - **Name**: Enter the name as **databricksXXXX** (XXXX*A unique
       number of your choice)*
