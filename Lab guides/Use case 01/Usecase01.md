@@ -1,4 +1,4 @@
-# Use Case 01 - End-to-End Streaming Pipeline with Delta Live Tables in Azure Databricks 
+# Use Case 01 - End-to-End Streaming Pipeline with Delta Live Tables in Azure Databricks.V.12 
 
 Solution focus area
 
@@ -584,3 +584,4 @@ using Azure Databricks. You'll learn how to ingest streaming data,
 process it in real-time, and store the results. The steps include
 configuring the Databricks environment, creating a streaming job, and
 using Structured Streaming to process data.
+
