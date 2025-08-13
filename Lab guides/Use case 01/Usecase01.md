@@ -1,4 +1,4 @@
-# Use Case 01 - End-to-End Streaming Pipeline with Delta Live Tables in Azure Databricks.V.12 
+# Use Case 01 - End-to-End Streaming Pipeline with Delta Live Tables in Azure Databricks
 
 Solution focus area
 
@@ -215,7 +215,7 @@ this exercise and skip this procedure.
 2.  In the sidebar on the left, select the **(+) New** task, and then
     select **Cluster**.
 
-    ![](./media/image18.png)
+    ![](./media/a1.png)
 
 3.  In the **New Cluster** page, create a new cluster with the following
     settings:
@@ -237,14 +237,13 @@ this exercise and skip this procedure.
 
     - **Terminate after** *20* **minutes of inactivity**
 
-     ![](./media/image19.png)
+     ![](./media/a2.png)
 
 4.  Wait for the cluster to be created. It may take 5-7 minute.
 
-    ![](./media/image20.png)
-    ![](./media/image21.png)
-    ![](./media/image22.png)
-
+    ![](./media/a3.png)
+    ![](./media/a4.png)
+  
 **Note**: If your cluster fails to start, your subscription may have
 insufficient quota in the region where your Azure Databricks workspace
 is provisioned. See CPU core limit prevents cluster creation for
@@ -270,7 +269,7 @@ temperature and humidity from various machines.
     already selected. If the cluster is not running, it may take a
     minute or so to start.
 
-     ![](./media/image23.png)
+     ![](./media/a5.png)
 
 2.  In the first cell of the notebook, enter the following code, which
     uses *shell* commands to download data files from GitHub into the
@@ -282,12 +281,12 @@ temperature and humidity from various machines.
     mkdir /dbfs/device_stream
     wget -O /dbfs/device_stream/device_data.csv https://github.com/MicrosoftLearning/mslearn-databricks/raw/main/data/device_data.csv
     ```
-    ![](./media/image24.png)
+    ![](./media/a6.png)
 
 3.  Use the **▸ Run Cell** menu option at the left of the cell to run
     it. Then wait for the Spark job run by the code to complete.
 
-     ![](./media/image25.png)
+     ![](./media/a7.png)
 
 ## Exercise 4: Use delta tables for streaming data
 
@@ -340,13 +339,13 @@ transformation in real time.
 2.  Use the **▸ Run Cell** menu option at the left of the cell to run
     it.
 
-  > This delta table will now become the source for data transformation in
-  > real time.
-  >
-  > Note: The code cell above creates the source stream. Therefore, the
-  > job run will never change to a completed status. To manually stop
-  > streaming, you can run query.stop() in a new cell.
-  >
+  This delta table will now become the source for data transformation in
+  real time.
+ 
+  Note: The code cell above creates the source stream. Therefore, the
+  job run will never change to a completed status. To manually stop
+ streaming, you can run query.stop() in a new cell.
+
    ![](./media/image27.png)
 ## Exercise 5: Create a Delta Live Table Pipeline
 
@@ -365,12 +364,12 @@ workflows with Delta Live Tables. It links data sources to target
 datasets through a Directed Acyclic Graph (DAG) declared in Python or
 SQL.
 
-1.  Select **Pipelines** in the left sidebar ,select **Create Pipeline**
+1.  Select **Jobs &Pipelines** in the left sidebar ,select **Create Pipeline**
     and then select **ETL pipeline**.
 
-    ![](./media/image28.png)
+    ![](./media/a8.png)
    
-    ![](./media/image29.png)
+    ![](./media/a9.png)
 
 2.  In the **Create pipeline** page, create a new pipeline with the
     following settings. Select Create
@@ -435,7 +434,7 @@ SQL.
 7.  Close the browser tab containing the notebook (the contents are
     automatically saved) and return to the pipeline.
 
-     ![](./media/image35.png)
+     ![](./media/a10.png)
 
 8.  Then select **Start**
 
@@ -443,7 +442,7 @@ SQL.
 
 9.  Select **Ingestion Pipeline**
 
-     ![](./media/image37.png)
+     ![](./media/a10.png)
 
 10. Now ,the pipeline has successfully completed
 
@@ -584,4 +583,5 @@ using Azure Databricks. You'll learn how to ingest streaming data,
 process it in real-time, and store the results. The steps include
 configuring the Databricks environment, creating a streaming job, and
 using Structured Streaming to process data.
+
 
