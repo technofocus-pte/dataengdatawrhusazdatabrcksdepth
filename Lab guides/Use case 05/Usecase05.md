@@ -1,3 +1,16 @@
+---
+lab:
+  title: Use case 05-Connect to and manage Azure Databricks Unity Catalog in Microsoft Purview
+  description: To create and use the Azure Purview platform, you will need to provision an Azure Purview account.
+  duration: 7 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Databricks
+    - Microsoft Purview
+---
+
 # **Use case 05-Connect to and manage Azure Databricks Unity Catalog in Microsoft Purview**
 
 This lab outlines how to register Azure Databricks, and how to
