@@ -1,3 +1,15 @@
+---
+lab:
+  title: Use case 03 - Real-Time Streaming with Azure Databricks and Event Hubs
+  description: In this lab, you will explore real-time streaming capabilities using Azure Databricks. Real-time streaming allows you to process and analyze data as it arrives, enabling timely insights and actions. Azure Databricks provides a powerful platform for building and managing real-time data pipelines, leveraging Apache Spark's streaming capabilities.
+  duration: 5 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Databricks
+---
+
 # Use case 03 - Real-Time Streaming with Azure Databricks and Event Hubs
 
 **Introduction:**
