@@ -1,3 +1,15 @@
+---
+lab:
+  title: Use case 02-Setup and use Unity Catalog for Data Management in Azure Databricks
+  description: Unity Catalog offers a centralized governance solution for data and AI, simplifying security by providing a single place to administer and audit data access. In this exercise, you'll configure Unity Catalog for an Azure Databricks workspace and use it to manage data.
+  duration: 126 minutes
+  level: 200
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Databricks
+---
+
 # Use case 02-Setup and use Unity Catalog for Data Management in Azure Databricks
 
 Unity Catalog offers a centralized governance solution for data and AI,
