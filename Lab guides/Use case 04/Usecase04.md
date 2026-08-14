@@ -1,3 +1,15 @@
+---
+lab:
+  title: Use case 04-Responsible AI with Large Language Models using Azure Databricks and Azure OpenAI
+  description: Azure Databricks is a distributed processing platform that uses Apache Spark clusters to process data in parallel on multiple nodes. Each cluster consists of a driver node to coordinate the work, and worker nodes to perform processing tasks. In this exercise, you'll create a single-node cluster to minimize the compute resources used in the lab environment (in which resources may be constrained). In a production environment, you'd typically create a cluster with multiple worker nodes.
+  duration: 5 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Databricks
+---
+
 ## **Use case 04-Responsible AI with Large Language Models using Azure Databricks and Azure OpenAI**
 
 **Introduction**
